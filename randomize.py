@@ -8,15 +8,15 @@ import PySimpleGUI as psg
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
-    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 111, 118", key = "broken",
+    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119", key = "broken",
         size = 20, enable_events = True) ],
-    [ psg.Text("PGV's in Teams?", size = 17), psg.Button("Yes", key = "include", size = 5) ],
+    [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
     [ psg.Button("Run") ]
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "include": "Yes", "team": "No" }
+res = { "dig": "Yes", "include": "No", "team": "No" }
 brokenR = ""
 levelR = 0
 while True:
@@ -71,7 +71,8 @@ if (good == 1):
         y = vivos[shift[i]]
         vivos[ind] = y
         vivos[shift[i]] = x
-        # print(vivos.index(broken[i]))
+    # print(vivos[111])
+    # print(vivos.index(111))
         
     vivoNames = list(open("ffc_vivoNames.txt", "rt").read().split("\n")[0:149])
     fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
@@ -169,7 +170,7 @@ if (good == 1):
             f.write(r[(i + 6):(i + 8)])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/donate_kaseki_defs/", "-i", "0.bin", "-o",
-            "NDS_UNPACK/data/etc/donate_kaseki_defs/" ])
+            "NDS_UNPACK/data/etc/donate_kaseki_defs" ])
         shutil.rmtree("NDS_UNPACK/data/etc/bin/")
         
     
@@ -208,10 +209,10 @@ if (good == 1):
                             else:
                                 f.write(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)])
                             f.write(r[(0x70 + shift + (i * 12) + 4):(0x70 + shift + (i * 12) + 12)])
-                        f.write(r[(0x46 + shift + (numVivos * 12)):(0x46 + shift + (numVivos * 16))])
+                        f.write(r[(0x70 + shift + (numVivos * 12)):(0x70 + shift + (numVivos * 16))])
                         for i in range(numVivos):
                             f.write((4).to_bytes(2, "little"))
-                        f.write(r[(0x46 + shift + (numVivos * 18)):])
+                        f.write(r[(0x70 + shift + (numVivos * 18)):])
                         f.close()
                         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-i", "0.bin", "-o",
                             "NDS_UNPACK/data/battle_param/" + mapN ])

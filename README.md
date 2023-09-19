@@ -6,9 +6,9 @@ Features:
 - Vivos are matched 1-to-1, so nothing is impossible to get
 - The three vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
   the Rainbow Canyon PTD, in FFC's case). These are Nigo, Krypto, and Pacro. All you need to
-  do to change this is edit the text input, making sure to use the vivosaurs' Numbers, and
-  separating each by a comma and any number of spaces. Also, all entries after the 25th
-  will be ignored
+  do to change this is edit the text input, making sure to use the vivosaurs' line numbers
+  in ffc_vivoNames.txt [1], and separating each by a comma and any number of spaces. Also,
+  all entries after the 25th will be ignored
 - DP vivos can, in fact, be dug up, and other things can turn into DP vivos accordingly,
   since I actually know where they are in FFC
 - There is an option to also disallow Post-Game vivos from appearing on randomized teams,
@@ -21,3 +21,8 @@ the same folder as the exe, or it won't work.
 
 Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
 WINE: https://www.winehq.org
+
+
+[1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
+It is much simpler to use the former, so just deal with having to open a text file once in 
+a while.
