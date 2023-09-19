@@ -51,6 +51,7 @@ if (good == 1):
         broken = [ max(1, min(149, int(x))) for x in broken ]
     except:
         broken = []
+    # print(broken)
 
     shift = [3, 23, 43, 58, 83, 5, 37, 62, 87, 91, 27, 29, 41, 68, 80, 45, 55, 60, 64, 90, 21, 40, 42, 49, 84]
     for b in broken:
@@ -70,6 +71,7 @@ if (good == 1):
         y = vivos[shift[i]]
         vivos[ind] = y
         vivos[shift[i]] = x
+        # print(vivos.index(broken[i]))
         
     vivoNames = list(open("ffc_vivoNames.txt", "rt").read().split("\n")[0:149])
     fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
@@ -200,13 +202,16 @@ if (good == 1):
                             else:
                                 f.write(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)])
                             if (levelR != 0):
-                                oldLevel = int.from_bytes(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 6)], "little")
+                                oldLevel = int.from_bytes(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)], "little")
                                 newLevel = max(1, min(oldLevel + levelR, 20))
-                                f.write(newLevel.to_bytes(4, "little"))
+                                f.write(newLevel.to_bytes(2, "little"))
                             else:
-                                f.write(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 6)])
-                            f.write(r[(0x70 + shift + (i * 12) + 6):(0x70 + shift + (i * 12) + 12)])
-                        f.write(r[(0x46 + shift + (numVivos * 12)):])
+                                f.write(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)])
+                            f.write(r[(0x70 + shift + (i * 12) + 4):(0x70 + shift + (i * 12) + 12)])
+                        f.write(r[(0x46 + shift + (numVivos * 12)):(0x46 + shift + (numVivos * 16))])
+                        for i in range(numVivos):
+                            f.write((4).to_bytes(2, "little"))
+                        f.write(r[(0x46 + shift + (numVivos * 18)):])
                         f.close()
                         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-i", "0.bin", "-o",
                             "NDS_UNPACK/data/battle_param/" + mapN ])
