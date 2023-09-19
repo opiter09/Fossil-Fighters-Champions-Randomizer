@@ -5,3 +5,6 @@ NDS_UNPACK*
 *.mch
 out.xdelta
 0023
+*.json
+bin/battle_param_defs_1707/0.bin
+battle_param_defs_1707
