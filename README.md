@@ -9,11 +9,11 @@ Features:
   do to change this is edit the text input, making sure to use the vivosaurs' Numbers, and
   separating each by a comma and any number of spaces. Also, all entries after the 25th
   will be ignored
-- You will never be able to dig up the DP vivosaurs. This is because I honestly don't feel
-  like trying to handle editing them, and I want everyone to be revivable
+- DP vivos can, in fact, be dug up, and other things can turn into DP vivos accordingly,
+  since I actually know where they are in FFC
 - There is an option to also disallow Post-Game vivos from appearing on randomized teams,
   because if they're broken then I mean it's no fun if the enemy has 3. Other than that
-  and not including or effecting Legendaries and DLC, the team randomization has no rules
+  and not including or affecting Legendaries and DLC, the team randomization has no rules
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in

@@ -184,7 +184,7 @@ if (good == 1):
                         f.close()
                         f = open(os.path.join(root, file), "ab")
                         mapN = os.path.join(root, file).split("\\")[-2]
-                        shift = full[0x38] + 2 - 0x46
+                        shift = r[0x38] + 2 - 0x46
                         numVivos = r[0x58 + shift]
                         f.write(r[0:(0x70 + shift)])
                         for i in range(numVivos):
