@@ -210,9 +210,9 @@ if (good == 1):
                                 f.write(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)])
                             f.write(r[(0x70 + shift + (i * 12) + 4):(0x70 + shift + (i * 12) + 12)])
                         f.write(r[(0x70 + shift + (numVivos * 12)):(0x70 + shift + (numVivos * 16))])
-                        for i in range(numVivos):
-                            f.write((4).to_bytes(2, "little"))
-                        f.write(r[(0x70 + shift + (numVivos * 18)):])
+                        # for i in range(numVivos):
+                            # f.write((4).to_bytes(2, "little"))
+                        f.write(r[(0x70 + shift + (numVivos * 16)):])
                         f.close()
                         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-i", "0.bin", "-o",
                             "NDS_UNPACK/data/battle_param/" + mapN ])
