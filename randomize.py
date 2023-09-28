@@ -182,7 +182,7 @@ if (good == 1):
                     f = open(os.path.join(root, file), "rb")
                     r = f.read()
                     f.close()
-                    if (len(r) > 0x46):
+                    if (len(r) > 0x46) and (r[0x34] == 0):
                         f = open(os.path.join(root, file), "wb")
                         f.close()
                         f = open(os.path.join(root, file), "ab")

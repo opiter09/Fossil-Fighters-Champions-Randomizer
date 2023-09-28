@@ -14,6 +14,8 @@ Features:
 - There is an option to also disallow Post-Game vivos from appearing on randomized teams,
   because if they're broken then I mean it's no fun if the enemy has 3. Other than that
   and not including or affecting Legendaries and DLC, the team randomization has no rules
+- The Allo fight and all scripted battles (e.g. Rupert vs. Todd) will not be touched at
+  all, both because they break if edited, and to maintain some lore-friendliness
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
