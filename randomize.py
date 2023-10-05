@@ -8,7 +8,7 @@ import PySimpleGUI as psg
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
-    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119", key = "broken",
+    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
@@ -100,11 +100,13 @@ if (good == 1):
                     f = open(os.path.join(root, file), "rb")
                     r = f.read()
                     f.close()
+                    mapN = os.path.join(root, file).split("\\")[-2]
+                    if (os.path.exists("NDS_UNPACK/data/map/e/" + mapN) == False):
+                        continue
                     f = open(os.path.join(root, file), "wb")
                     f.close()
                     f = open(os.path.join(root, file), "ab")
                     point = int.from_bytes(r[0x6C:0x70], "little")
-                    mapN = os.path.join(root, file).split("\\")[-2]
                     realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
                     loc = point + 4
                     while (realP[-1] > 0):
