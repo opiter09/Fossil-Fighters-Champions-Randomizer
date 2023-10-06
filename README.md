@@ -24,6 +24,9 @@ the same folder as the exe, or it won't work.
 Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
 WINE: https://www.winehq.org
 
+TIP: If the game hangs at the Nintendo logo, and you have run the randomizer previously,
+try manually removing the NDS_UNPACK folder, then running it again.
+
 
 [1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
 It is much simpler to use the former, so just deal with having to open a text file once in 
