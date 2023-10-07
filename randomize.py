@@ -8,6 +8,7 @@ import PySimpleGUI as psg
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
+    [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
@@ -16,7 +17,7 @@ layout = [
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "include": "No", "team": "No" }
+res = { "dig": "Yes", "include": "No", "team": "No", "color": "No" }
 brokenR = ""
 levelR = 0
 while True:
@@ -25,7 +26,7 @@ while True:
     if (event == psg.WINDOW_CLOSED) or (event == "Quit"):
         good = 0
         break
-    elif (event in ["dig", "include", "team"]):
+    elif (event in res.keys()):
         x = ["No", "Yes"]
         new = x[int(not x.index(window[event].get_text()))]
         window[event].update(new)
@@ -220,6 +221,29 @@ if (good == 1):
                             "NDS_UNPACK/data/battle_param/" + mapN ])
         shutil.rmtree("NDS_UNPACK/data/battle_param/bin/")
         
+    if (res["color"] == "Yes"):    
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/etc/creature_palet_defs" ])
+        f = open("NDS_UNPACK/data/etc/bin/creature_palet_defs/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_palet_defs/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_palet_defs/0.bin", "ab")
+        f.write(r[0:12])
+        for i in range(12, len(r), 12):
+            f.write(r[i:(i + 2)])
+            pal = 6
+            while (pal == 6):
+                pal = random.randint(1, 0x1F)
+            f.write(pal.to_bytes(2, "little"))
+            for j in range(3):
+                f.write((100).to_bytes(2, "little"))
+            f.write(bytes(2))
+        f.close()
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-i", "0.bin", "-o",
+            "NDS_UNPACK/data/etc/creature_palet_defs" ])
+        shutil.rmtree("NDS_UNPACK/data/etc/bin/")
+
     subprocess.run([ "dslazy.bat", "PACK", "out.nds" ])
     subprocess.run([ "xdelta3-3.0.11-x86_64.exe", "-e", "-f", "-s", sys.argv[1], "out.nds", "out.xdelta" ])
 
