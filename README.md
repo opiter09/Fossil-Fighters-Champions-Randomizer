@@ -1,5 +1,5 @@
 # Fossil-Fighters-Champions-Randomizer
-This is a digsite and teams randomizer for FFC.
+This is a digsite, teams, and color randomizer for FFC.
 
 Features:
 - You can only dig up the main 149
@@ -16,6 +16,9 @@ Features:
   and not including or affecting Legendaries and DLC, the team randomization has no rules
 - The Allo fight and all scripted battles (e.g. Rupert vs. Todd) will not be touched at
   all, both because they break if edited, and to maintain some lore-friendliness
+- The color randomization refers to the palette changes Super Fossils make. Due to
+  complications with editing individual creature data, many vivosaurs which changed to
+  the same palette before will change to the same different one after
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
