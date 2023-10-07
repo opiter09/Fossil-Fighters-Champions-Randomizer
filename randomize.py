@@ -236,9 +236,7 @@ if (good == 1):
             while (pal == 6):
                 pal = random.randint(1, 0x1F)
             f.write(pal.to_bytes(2, "little"))
-            for j in range(3):
-                f.write((100).to_bytes(2, "little"))
-            f.write(bytes(2))
+            f.write(r[(i + 4):(i + 12)])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-i", "0.bin", "-o",
             "NDS_UNPACK/data/etc/creature_palet_defs" ])
