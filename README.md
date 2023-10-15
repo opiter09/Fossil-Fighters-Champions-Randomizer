@@ -12,8 +12,9 @@ Features:
 - DP vivos can, in fact, be dug up, and other things can turn into DP vivos accordingly,
   since I actually know where they are in FFC
 - There is an option to also disallow Post-Game vivos from appearing on randomized teams,
-  because if they're broken then I mean it's no fun if the enemy has 3. Other than that
-  and not including or affecting Legendaries and DLC, the team randomization has no rules
+  because if they're broken then I mean it's no fun if the enemy has 3
+- In addition, team randomization does not include or affect Legendaries and DLC, and no
+  randomized team will include Curious Fossil or Giant Fossil vivos for technical reasons
 - The Allo fight and all scripted battles (e.g. Rupert vs. Todd) will not be touched at
   all, both because they break if edited, and to maintain some lore-friendliness
 - The color randomization refers to the palette changes Super Fossils make. Due to

@@ -200,7 +200,7 @@ if (good == 1):
                                     f.write(random.randint(1, 149).to_bytes(2, "little"))
                                 else:
                                     newVivo = random.randint(1, 149)
-                                    while newVivo in broken:
+                                    while (newVivo in broken) or ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"]):
                                         newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                             else:
