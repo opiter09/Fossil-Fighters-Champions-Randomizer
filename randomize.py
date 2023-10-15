@@ -197,10 +197,13 @@ if (good == 1):
                             vivoNum = int.from_bytes(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)], "little")
                             if ((vivoNum in list(range(1, 150))) and (res["team"] == "Yes")):
                                 if (res["include"] == "Yes"):
-                                    f.write(random.randint(1, 149).to_bytes(2, "little"))
+                                    newVivo = random.randint(1, 149)
+                                    while ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"]):
+                                        newVivo = random.randint(1, 149)
+                                    f.write(newVivo.to_bytes(2, "little"))
                                 else:
                                     newVivo = random.randint(1, 149)
-                                    while (newVivo in broken) or ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"]):
+                                    while ((newVivo in broken) or ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"])):
                                         newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                             else:
