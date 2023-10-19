@@ -198,12 +198,12 @@ if (good == 1):
                             if ((vivoNum in list(range(1, 150))) and (res["team"] == "Yes")):
                                 if (res["include"] == "Yes"):
                                     newVivo = random.randint(1, 149)
-                                    while ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"]):
+                                    while ((vivoNum <= 100) and (newVivo > 100)):
                                         newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                                 else:
                                     newVivo = random.randint(1, 149)
-                                    while ((newVivo in broken) or ((vivoNames[newVivo - 1] + " Single") in fossilTable["Head"])):
+                                    while ((newVivo in broken) or ((vivoNum <= 100) and (newVivo > 100))):
                                         newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                             else:
