@@ -1,5 +1,5 @@
 # Fossil-Fighters-Champions-Randomizer
-This is a digsite, teams, and color randomizer for FFC.
+This is a digsite, color, and (hopefully in the future) teams randomizer for FFC.
 
 Features:
 - You can only dig up the main 149
@@ -11,15 +11,14 @@ Features:
   Also, all entries after the 25th will be ignored
 - DP vivos can, in fact, be dug up, and other things can turn into DP vivos accordingly,
   since I actually know where they are in FFC
-- There is an option to also disallow Post-Game vivos from appearing on randomized teams,
-  because if they're broken then I mean it's no fun if the enemy has 3
-- In addition, team randomization does not include or affect Legendaries and DLC, and no
-  randomized team will include Curious Fossil or Giant Fossil vivos for technical reasons
-- The Allo fight and all scripted battles (e.g. Rupert vs. Todd) will not be touched at
-  all, both because they break if edited, and to maintain some lore-friendliness
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
+- Like FF1, the Teams randomization is too buggy to be made visible, but for a much stranger
+  reason. The AI works as well as it ever does, but instead certain vivosaur combinations
+  in story teams just crash the game for no reason. I've figured out which bytes are
+  causing the issue, but I have no idea what they do or how to figure out what they do,
+  so we'll just have to wait and see
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in

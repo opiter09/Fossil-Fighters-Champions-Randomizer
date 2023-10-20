@@ -7,11 +7,11 @@ import PySimpleGUI as psg
 
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
-    [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
+    # [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
-    [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
+    # [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
     [ psg.Button("Run") ]
 ]
@@ -198,12 +198,10 @@ if (good == 1):
                             if ((vivoNum in list(range(1, 150))) and (res["team"] == "Yes")):
                                 if (res["include"] == "Yes"):
                                     newVivo = random.randint(1, 149)
-                                    while ((vivoNum <= 100) and (newVivo > 100)):
-                                        newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                                 else:
                                     newVivo = random.randint(1, 149)
-                                    while ((newVivo in broken) or ((vivoNum <= 100) and (newVivo > 100))):
+                                    while (newVivo in broken):
                                         newVivo = random.randint(1, 149)
                                     f.write(newVivo.to_bytes(2, "little"))
                             else:
