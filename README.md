@@ -36,7 +36,6 @@ It is much simpler to use the former, so just deal with having to open a text fi
 a while.
 
 # Source Codes
-- NitroPaint:  https://github.com/Garhoogin/NitroPaint/releases
 - FFTool: https://github.com/jianmingyong/Fossil-Fighters-Tool
 - NDSTool: https://github.com/devkitPro/ndstool (this is a later version; the one used here came without a license as part of DSLazy)
 - xdelta: https://github.com/jmacd/xdelta-gpl
