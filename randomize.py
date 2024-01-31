@@ -130,13 +130,27 @@ if (good == 1):
                                 thisStart = startSpawns + (j * 8)
                                 kasekiNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                                 used[thisStart + 2] = kasekiNum
+                    singles = {}
+                    for fos in fossilTable["Head"]:
+                        singles[fos] = -1
                     for i in range(0, len(r), 2):
                         if (i in used.keys()):
                             check = 0
-                            for p in ["Head", "Body", "Arms", "Legs"]:
+                            temp = ["Head", "Body", "Arms", "Legs"]
+                            for p in temp:
                                 if (used[i] in fossilTable[p]):
-                                    old = fossilTable[p].index(used[i])
-                                    new = fossilTable[p][vivos[old]]
+                                    if (fossilNames[used[i]].endswith("Single") == True):
+                                        singles[used[i]] = singles[used[i]] + 1
+                                        if (singles[used[i]] >= 4):
+                                            singles[used[i]] = 0
+                                        old = fossilTable[p].index(used[i])
+                                        new = fossilTable[temp[singles[used[i]]]][vivos[old]]
+                                        # print(fossilNames[used[i]])
+                                        # print(fossilNames[new])
+                                        # print("\n")
+                                    else:
+                                        old = fossilTable[p].index(used[i])
+                                        new = fossilTable[p][vivos[old]]
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
