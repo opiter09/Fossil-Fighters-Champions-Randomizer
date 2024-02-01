@@ -14,11 +14,8 @@ Features:
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
-- Like FF1, the Teams randomization is too buggy to be made visible, but for a much stranger
-  reason. The AI works as well as it ever does, but instead certain vivosaur combinations
-  in story teams just crash the game for no reason. I've figured out which bytes are
-  causing the issue, but I have no idea what they do or how to figure out what they do,
-  so we'll just have to wait and see
+- Team Randomization is HIGHLY experimental. If you get crashes on story fights, please
+   let me know and...well I'll just have to disable it again, lol.
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
