@@ -7,11 +7,11 @@ import PySimpleGUI as psg
 
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
-    # [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
+    [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
-    # [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
+    [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
     [ psg.Button("Run") ]
 ]
@@ -232,8 +232,8 @@ if (good == 1):
                             # f.write((4).to_bytes(2, "little"))
                         f.write(r[(0x70 + shift + (numVivos * 16)):])
                         f.close()
-                        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-i", "0.bin", "-o",
-                            "NDS_UNPACK/data/battle_param/" + mapN ])
+                        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-c", "None", "-c",
+                            "None", "-i", "0.bin", "-o", "NDS_UNPACK/data/battle_param/" + mapN ])
         shutil.rmtree("NDS_UNPACK/data/battle_param/bin/")
         
     if (res["color"] == "Yes"):    
