@@ -5,6 +5,58 @@ import random
 import sys
 import PySimpleGUI as psg
 
+def digsiteOutput():
+    text = open("ffc_digsiteOutput.txt", "wt")
+    text.close()
+    text = open("ffc_digsiteOutput.txt", "at")
+    for root, dirs, files in os.walk("NDS_UNPACK/data/map/m/bin/"):
+        for file in files:
+            if (file == "0.bin"):
+                f = open(os.path.join(root, file), "rb")
+                r = f.read()
+                f.close()
+                point = int.from_bytes(r[0x6C:0x70], "little")
+                mapN = os.path.join(root, file).split("\\")[-2]
+                mapN = mapN.split("/")[-1] # it just works
+                f = open("ffc_kasekiNames.txt", "rt")
+                vivoNames = list(f.read().split("\n")).copy()
+                f.close()
+                realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
+                loc = point + 4
+                while (realP[-1] > 0):
+                    realP.append(int.from_bytes(r[loc:(loc + 4)], "little"))
+                    loc = loc + 4
+                realP = realP[0:-1]
+                check = 0
+                for val in realP:
+                    index = int.from_bytes(r[(val + 2):(val + 4)], "little")
+                    if (index == 0):
+                        continue
+                    else:
+                        if (check == 0):
+                            check = 1
+                            text.write(mapN + ":\n")
+                    text.write("Zone " + str(index).zfill(2) + ":\n")
+                    # maxFos = int.from_bytes(r[(val + 12):(val + 16)], "little")
+                    # text.write("\tMax Spawns: " + str(maxFos) + "\n")
+                    numTables = int.from_bytes(r[(val + 12):(val + 16)], "little")
+                    point3 = int.from_bytes(r[(val + 16):(val + 20)], "little")
+                    for i in range(numTables):
+                        text.write("\tFossil Chip " + str(i) + ":\n")
+                        point4 = int.from_bytes(r[(val + point3 + (i * 4)):(val + point3 + (i * 4) + 4)], "little")
+                        point5 = int.from_bytes(r[(val + point4 + 12):(val + point4 + 16)], "little")
+                        numWeird = int.from_bytes(r[(val + point4 + point5 + 8):(val + point4 + point5 + 12)], "little")
+                        numSpawns = int.from_bytes(r[(val + point4 + point5 + 16):(val + point4 + point5 + 20)], "little")
+                        startSpawns = val + point4 + point5 + 24 + (numWeird * 2)
+                        for j in range(numSpawns):
+                            thisStart = startSpawns + (j * 8)
+                            vivoNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
+                            # chance = int.from_bytes(r[(val + point4 + 4):(val + point4 + 8)], "little")
+                            text.write("\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum] + "\n")
+                if (check == 1):
+                    text.write("\n")
+    text.close()
+
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
@@ -13,11 +65,12 @@ layout = [
         size = 20, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
+    [ psg.Text("TLC on Nameless?", size = 17), psg.Button("Yes", key = "jewel", size = 5) ],
     [ psg.Button("Run") ]
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "include": "No", "team": "No", "color": "No" }
+res = { "dig": "Yes", "include": "No", "team": "No", "color": "No", "jewel": "Yes" }
 brokenR = ""
 levelR = 0
 while True:
@@ -154,6 +207,11 @@ if (good == 1):
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
+                                elif (used[i] in [900, 901, 902, 903]):
+                                    new = random.randint(900, 903)
+                                    f.write(new.to_bytes(2, "little"))
+                                    check = 1
+                                    break
                             if (check == 0):
                                f.write(r[i:(i + 2)]) 
                         else:
@@ -161,6 +219,7 @@ if (good == 1):
                     f.close()
                     subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/map/m/bin/" + mapN, "-i", "0.bin", "-o",
                         "NDS_UNPACK/data/map/m/" + mapN ])
+        digsiteOutput()
         shutil.rmtree("NDS_UNPACK/data/map/m/bin/")
         
         subprocess.run([ "fftool.exe", "NDS_UNPACK/data/etc/donate_kaseki_defs" ])
@@ -192,6 +251,10 @@ if (good == 1):
         
     
     if ((res["team"] == "Yes") or (levelR != 0)):
+        f = open("ffc_enemyNames.txt", "rt")
+        eNames = list(f.read().split("\n"))
+        f.close()
+
         subprocess.run([ "fftool.exe", "NDS_UNPACK/data/battle_param" ])
         for root, dirs, files in os.walk("NDS_UNPACK/data/battle_param/bin"):
             for file in files:
@@ -199,26 +262,36 @@ if (good == 1):
                     f = open(os.path.join(root, file), "rb")
                     r = f.read()
                     f.close()
-                    if (len(r) > 0x46) and (r[0x34] == 0):
+                    shift = r[0x38] + 2 - 0x46
+                    try:
+                        orig = int.from_bytes(r[(0x46 + shift):(0x48 + shift)], "little")
+                        teamN = eNames[orig - 0x104E]
+                    except:
+                        teamN = ""
+                    if ((len(r) > 0x46) and (r[0x34] == 0) and ((res["jewel"] == "Yes") or (teamN != "Fossil Fighter"))):
                         f = open(os.path.join(root, file), "wb")
                         f.close()
                         f = open(os.path.join(root, file), "ab")
                         mapN = os.path.join(root, file).split("\\")[-2]
-                        shift = r[0x38] + 2 - 0x46
                         numVivos = r[0x58 + shift]
                         f.write(r[0:(0x70 + shift)])
                         for i in range(numVivos):
                             vivoNum = int.from_bytes(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)], "little")
-                            if ((vivoNum in list(range(1, 150))) and (res["team"] == "Yes")):
-                                if (res["include"] == "Yes"):
-                                    newVivo = random.randint(1, 149)
-                                    f.write(newVivo.to_bytes(2, "little"))
-                                else:
-                                    newVivo = random.randint(1, 149)
-                                    while (newVivo in broken):
-                                        newVivo = random.randint(1, 149)
-                                    f.write(newVivo.to_bytes(2, "little"))
-                            else:
+                            listOfLists = [ [1, 149], [150, 179], [180, 183], [184, 190] ]
+                            check = 0
+                            for L in listOfLists:
+                                if ((vivoNum in list(range(L[0], L[1] + 1))) and (res["team"] == "Yes")):
+                                    if (res["include"] == "Yes"):
+                                        newVivo = random.randint(L[0], L[1])
+                                        f.write(newVivo.to_bytes(2, "little"))
+                                    else:
+                                        newVivo = random.randint(L[0], L[1])
+                                        while (newVivo in broken):
+                                            newVivo = random.randint(L[0], L[1])
+                                        f.write(newVivo.to_bytes(2, "little"))
+                                    check = 1
+                                    break
+                            if (check == 0):
                                 f.write(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)])
                             if (levelR != 0):
                                 oldLevel = int.from_bytes(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)], "little")

@@ -4,6 +4,7 @@ This is a digsite, color, and (hopefully in the future) teams randomizer for FFC
 Features:
 - You can only dig up the main 149
 - Vivos are matched 1-to-1, so nothing is impossible to get
+- Silver Fossils are also randomized among themselves
 - The three vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
   the Rainbow Canyon PTD, in FFC's case). These are Nigo, Krypto, Pacro, and Machai. All you
   need to do to change this is edit the text input, making sure to use the vivosaurs' line
@@ -15,7 +16,15 @@ Features:
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
 - Team Randomization is HIGHLY experimental. If you get crashes on story fights, please
-   let me know and...well I'll just have to disable it again, lol.
+  let me know and...well I'll just have to disable it again, lol
+- The teams randomization randomizes regular vivos, super evolvers, boneysaurs, and
+  zombiesaurs among themselves. "True" legendaries (Zongazonga, Tonzilla, etc.) are
+  entirely untouched
+   
+If you would like to see the table of new spawns, see the "ffc_digsiteOutput.txt" the
+randomizer generates. UNlike FF1, we don't have map names associated to everything, so
+you'll have to look at the zone maps in FFC-E-Maps-Color.zip to figure out which area
+is which.
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
