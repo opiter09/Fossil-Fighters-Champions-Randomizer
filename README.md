@@ -22,9 +22,9 @@ Features:
   entirely untouched
    
 If you would like to see the table of new spawns, see the "ffc_digsiteOutput.txt" the
-randomizer generates. UNlike FF1, we don't have map names associated to everything, so
-you'll have to look at the zone maps in FFC-E-Maps-Color.zip to figure out which area
-is which.
+randomizer generates. Unlike FF1, we don't have map names associated to everything, so
+you'll have to look at the shapes of the zone maps in FFC-E-Maps-Color.zip to figure out
+which area is which.
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
 you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
@@ -32,10 +32,6 @@ the same folder as the exe, or it won't work.
 
 Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
 WINE: https://www.winehq.org
-
-TIP: If the game crahses/hangs anywhere, and you have run the randomizer previously,
-try manually removing the NDS_UNPACK folder, then running it again.
-
 
 [1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
 It is much simpler to use the former, so just deal with having to open a text file once in 
