@@ -8,3 +8,4 @@ out.xdelta
 *.json
 bin/battle_param_defs_1707/0.bin
 battle_param_defs_1707
+randomize.bat
