@@ -139,10 +139,10 @@ if (good == 1):
                 fossilTable[k].append(fossilNames.index(v + " Single"))
     # print(fossilTable["Head"])
 
-    try:
-        shutil.rmtree("NDS_UNPACK")
-    except:
-        pass
+    if (os.path.exists("NDS_UNPACK/y7.bin") == True):
+        shutil.rmtree("./NDS_UNPACK/")
+    if (os.path.exists("out.nds") == True):
+        os.remove("out.nds")
     subprocess.run([ "dslazy.bat", "UNPACK", sys.argv[1] ])
     
     if (res["dig"] == "Yes"):
