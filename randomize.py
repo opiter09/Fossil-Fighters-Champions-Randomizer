@@ -50,9 +50,13 @@ def digsiteOutput():
                         startSpawns = val + point4 + point5 + 24 + (numWeird * 2)
                         for j in range(numSpawns):
                             thisStart = startSpawns + (j * 8)
+                            dark = (["N/A", "Normal", "Dark"])[r[thisStart]]
+                            rare = (["N/A", "Normal", "Rare"])[r[thisStart + 1]]
                             vivoNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                             # chance = int.from_bytes(r[(val + point4 + 4):(val + point4 + 8)], "little")
-                            text.write("\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum] + "\n")
+                            s = "\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum]
+                            s = s + " (" + dark + ", " + rare + ")" + "\n"
+                            text.write(s)
                 if (check == 1):
                     text.write("\n")
     text.close()
