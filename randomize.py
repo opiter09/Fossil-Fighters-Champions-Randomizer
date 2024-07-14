@@ -36,13 +36,13 @@ def digsiteOutput():
                         if (check == 0):
                             check = 1
                             text.write(mapN + ":\n")
-                    text.write("Zone " + str(index).zfill(2) + ":\n")
+                    text.write("\tZone " + str(index).zfill(2) + ":\n")
                     # maxFos = int.from_bytes(r[(val + 12):(val + 16)], "little")
                     # text.write("\tMax Spawns: " + str(maxFos) + "\n")
                     numTables = int.from_bytes(r[(val + 12):(val + 16)], "little")
                     point3 = int.from_bytes(r[(val + 16):(val + 20)], "little")
                     for i in range(numTables):
-                        text.write("\tFossil Chip " + str(i) + ":\n")
+                        text.write("\t\tFossil Chip " + str(i) + ":\n")
                         point4 = int.from_bytes(r[(val + point3 + (i * 4)):(val + point3 + (i * 4) + 4)], "little")
                         point5 = int.from_bytes(r[(val + point4 + 12):(val + point4 + 16)], "little")
                         numWeird = int.from_bytes(r[(val + point4 + point5 + 8):(val + point4 + point5 + 12)], "little")
@@ -54,7 +54,7 @@ def digsiteOutput():
                             rare = (["N/A", "Normal", "Rare"])[r[thisStart + 1]]
                             vivoNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                             # chance = int.from_bytes(r[(val + point4 + 4):(val + point4 + 8)], "little")
-                            s = "\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum]
+                            s = "\t\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum]
                             s = s + " (" + dark + ", " + rare + ")" + "\n"
                             text.write(s)
                 if (check == 1):
