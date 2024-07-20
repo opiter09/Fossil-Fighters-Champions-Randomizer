@@ -698,36 +698,36 @@ Other
 Other
 Other
 Other
-Small Pearl
-Small Pearl
-Small Pearl
-Emerald
-Emerald
-Emerald
-Diamond
-Diamond
-Diamond
-Double Pearl
-Double Pearl
-Double Pearl
-Sapphire
-Sapphire
-Sapphire
-Double Diamond
-Double Diamond
-Double Diamond
-Giant Pearl
-Giant Pearl
-Giant Pearl
-Ruby
-Ruby
-Ruby
-Quad Diamond
-Quad Diamond
-Quad Diamond
-Colossal Diamond
-Colossal Diamond
-Colossal Diamond
+Small Pearl (0700)
+Small Pearl (0701)
+Small Pearl (0702)
+Emerald (0703)
+Emerald (0704)
+Emerald (0705)
+Diamond (0706)
+Diamond (0707)
+Diamond (0708)
+Double Pearl (0709)
+Double Pearl (0710)
+Double Pearl (0711)
+Sapphire (0712)
+Sapphire (0713)
+Sapphire (0714)
+Double Diamond (0715)
+Double Diamond (0716)
+Double Diamond (0717)
+Giant Pearl (0718)
+Giant Pearl (0719)
+Giant Pearl (0720)
+Ruby (0721)
+Ruby (0722)
+Ruby (0723)
+Quad Diamond (0724)
+Quad Diamond (0725)
+Quad Diamond (0726)
+Colossal Diamond (0727)
+Colossal Diamond (0728)
+Colossal Diamond (0729)
 Other
 Other
 Other
@@ -798,36 +798,36 @@ Other
 Other
 Other
 Other
-Giant Dropping
-Giant Dropping
-Giant Dropping
-Double Giant Dropping
-Double Giant Dropping
-Double Giant Dropping
-Center Dropping
-Center Dropping
-Center Dropping
-Bottom-Right Dropping
-Bottom-Right Dropping
-Bottom-Right Dropping
-Top-Right Dropping
-Top-Right Dropping
-Top-Right Dropping
-Bottom-Left Dropping
-Bottom-Left Dropping
-Bottom-Left Dropping
-Top-Left Dropping
-Top-Left Dropping
-Top-Left Dropping
-Triangle Dropping
-Triangle Dropping
-Triangle Dropping
-Triple Dropping
-Triple Dropping
-Triple Dropping
-Double Dropping
-Double Dropping
-Double Dropping
+Giant Dropping (0800)
+Giant Dropping (0801)
+Giant Dropping (0802)
+Double Giant Dropping (0803)
+Double Giant Dropping (0804)
+Double Giant Dropping (0805)
+Center Dropping (0806)
+Center Dropping (0807)
+Center Dropping (0808)
+Bottom-Right Dropping (0809)
+Bottom-Right Dropping (0810)
+Bottom-Right Dropping (0811)
+Top-Right Dropping (0812)
+Top-Right Dropping (0813)
+Top-Right Dropping (0814)
+Bottom-Left Dropping (0815)
+Bottom-Left Dropping (0816)
+Bottom-Left Dropping (0817)
+Top-Left Dropping (0818)
+Top-Left Dropping (0819)
+Top-Left Dropping (0820)
+Triangle Dropping (0821)
+Triangle Dropping (0822)
+Triangle Dropping (0823)
+Triple Dropping (0824)
+Triple Dropping (0825)
+Triple Dropping (0826)
+Double Dropping (0827)
+Double Dropping (0828)
+Double Dropping (0829)
 Quad Dropping
 Pair Dropping
 Weird Giant Dropping 1
