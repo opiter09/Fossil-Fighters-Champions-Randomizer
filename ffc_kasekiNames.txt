@@ -993,7 +993,7 @@ Other
 Other
 Other
 Other
-Other
-Other
-Other
-Other
+[Starter] Head
+[Starter] Body
+[Starter] Arms
+[Starter] Legs
