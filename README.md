@@ -1,6 +1,8 @@
 # Fossil-Fighters-Champions-Randomizer
 This is a digsite, color, and (hopefully in the future) teams randomizer for FFC.
 
+You MUST put the ROM in the same folder as the exe, or it won't work.
+
 Features:
 - You can only dig up the main 149
 - Vivos are matched 1-to-1, so nothing is impossible to get
@@ -27,8 +29,7 @@ you'll have to look at the shapes of the zone maps in FFC-E-Maps-Color.zip to fi
 which area is which.
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
-you run it by dragging and dropping an FFC ROM onto randomize.exe. You MUST put the ROM in
-the same folder as the exe, or it won't work.
+you run it by dragging and dropping an FFC ROM onto randomize.exe.
 
 Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
 WINE: https://www.winehq.org
