@@ -61,10 +61,56 @@ def digsiteOutput():
                     text.write("\n")
     text.close()
 
+def messageReplace(fileNum, oldList, newList):
+    byteList = []
+    subprocess.run([ "fftool.exe", "./NDS_UNPACK/data/msg/msg_" + fileNum ])
+    f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "rb")
+    r = f.read()
+    f.close()
+    numStrings = int.from_bytes(r[4:8], "little")
+    for i in range(12, 12 + (numStrings * 4), 4):
+        loc = int.from_bytes(r[i:(i + 4)], "little")
+        nextLoc = int.from_bytes(r[(i + 4):(i + 8)], "little")
+        if ((i + 4) >= (12 + (numStrings * 4))):
+            nextLoc = os.stat("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin").st_size
+        temp = (r[(loc + 8):nextLoc]).decode("UTF-8", errors = "ignore")
+        for j in range(min(len(oldList), len(newList))):
+            temp = temp.replace(oldList[j], newList[j])
+        temp = temp.encode("UTF-8", errors = "ignore")
+        byteList.append(r[loc:(loc + 8)] + temp)
+    f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "wb")
+    f.close()
+    f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "ab")
+    f.write((0x45).to_bytes(1, "little"))
+    f.write(r[1:16])
+    writeLoc = int.from_bytes(r[12:16], "little")
+    for i in range(len(byteList) - 1):
+        writeLoc = writeLoc + len(byteList[i])
+        f.write(writeLoc.to_bytes(4, "little"))
+    for i in range(len(byteList)):
+        f.write(byteList[i])
+    f.close()
+    subprocess.run([ "fftool.exe", "compress", "./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/", "-c", "None", "-c", "None",
+        "-i", "0.bin", "-o", "./NDS_UNPACK/data/msg/msg_" + fileNum ])
+    shutil.rmtree("NDS_UNPACK/data/msg/bin/")
+    f2 = open("./NDS_UNPACK/data/msg/msg_" + fileNum, "rb")
+    r2 = f2.read()
+    f2.close()
+    f2 = open("./NDS_UNPACK/data/msg/msg_" + fileNum, "wb")
+    f2.close()
+    f2 = open("./NDS_UNPACK/data/msg/msg_" + fileNum, "ab")
+    rel = int.from_bytes(r2[0x24:0x28], "little") + 0x10
+    f2.write(r2[0:rel])
+    f2.write((0x44).to_bytes(1, "little"))
+    f2.write(r2[(rel + 1):])
+    f2.close()
+
 layout = [
     [ psg.Text("Randomize Fossils?", size = 17), psg.Button("Yes", key = "dig", size = 5) ],
+    [ psg.Text("Randomize Starters?", size = 17), psg.Button("Yes", key = "start", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
+    [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 20, enable_events = True) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
@@ -74,7 +120,7 @@ layout = [
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "include": "No", "team": "No", "color": "No", "jewel": "Yes" }
+res = { "dig": "Yes", "start": "Yes", "include": "No", "team": "No", "color": "No", "jewel": "Yes" }
 brokenR = ""
 levelR = 0
 while True:
@@ -92,6 +138,7 @@ while True:
         good = 1
         brokenR = values["broken"]
         levelR = values["level"]
+        customR = values["custom"]
         try:
             levelR = int(levelR)
         except:
@@ -131,15 +178,35 @@ if (good == 1):
         vivos[shift[i]] = x
     # print(vivos[111])
     # print(vivos.index(111))
+    
+    if ((res["start"] == "Yes") or (customR != "")):
+        if (res["dig"] == "Yes"):
+            vivos = [0] + list(range(1, 150))
+        starters = [ vivos[102], vivos[112], vivos[118], vivos[136], vivos[73] ]
+        custom = list(customR.replace(" ", "").replace("\n", "").split(","))
+        custom = list(set(custom))
+        try:
+            custom = [ max(1, min(149, int(x))) for x in custom ]
+        except:
+            custom = []  
+        for i in range(min(len(custom), 5)):
+            starters[i] = custom[i]
+        old = [102, 112, 118, 136, 73]
+        for i in range(5):
+            x = vivos.index(min(149, starters[i]))
+            y = vivos[old[i]]
+            vivos[x] = y
+            vivos[old[i]] = min(149, starters[i])
         
-    vivoNames = list(open("ffc_vivoNames.txt", "rt").read().split("\n")[0:149])
+    vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n")[0:149])
+    vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n")[0:149])
     fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
     fossilTable = { "Head": [0], "Body": [0], "Arms": [0], "Legs": [0] }
     for v in vivoNames:
         for k in fossilTable.keys():
             if ((v + " " + k) in fossilNames):
                 fossilTable[k].append(fossilNames.index(v + " " + k))
-            else:
+            elif (v != "NONE"):
                 fossilTable[k].append(fossilNames.index(v + " Single"))
     # print(fossilTable["Head"])
 
@@ -149,7 +216,7 @@ if (good == 1):
         os.remove("out.nds")
     subprocess.run([ "dslazy.bat", "UNPACK", sys.argv[1] ])
     
-    if (res["dig"] == "Yes"):
+    if ((res["dig"] == "Yes") or (res["start"] == "Yes") or (customR != "")):
         subprocess.run([ "fftool.exe", "NDS_UNPACK/data/map/m" ])
         for root, dirs, files in os.walk("NDS_UNPACK/data/map/m/bin"):
             for file in files:
@@ -216,6 +283,14 @@ if (good == 1):
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
+                            if ((used[i] in [995, 996, 997, 998]) and ((res["start"] == "Yes") or (customR != ""))):
+                                p = temp[used[i] - 995]
+                                if ((vivoNames[starters[4]] + " Single") in fossilNames):
+                                    new = fossilNames.index(vivoNames[starters[4]] + " Single")
+                                else:
+                                    new = fossilNames.index(vivoNames[starters[4]] + " " + p)
+                                f.write(new.to_bytes(2, "little"))
+                                check = 1
                             if (check == 0):
                                f.write(r[i:(i + 2)]) 
                         else:
@@ -253,7 +328,78 @@ if (good == 1):
             "NDS_UNPACK/data/etc/donate_kaseki_defs" ])
         shutil.rmtree("NDS_UNPACK/data/etc/bin/")
         
-    
+    if ((res["start"] == "Yes") or (customR != "")):
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/episode/e0012" ])
+        f = open("NDS_UNPACK/data/episode/bin/e0012/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0012/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0012/0.bin", "ab")
+        places = [0x1B28, 0x1B48, 0x1B60, 0x1DD8, 0x1DF8, 0x1E10, 0x2088, 0x20A8, 0x20C0, 0x2338, 0x2358, 0x2370, len(r)]
+        temp = [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4]
+        f.write(r[0:places[0]])
+        for i in range(len(places) - 1):
+            f.write(temp[i].to_bytes(2, "little"))
+            f.write(r[(places[i] + 2):places[i + 1]])
+        f.close()
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0012/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/episode/e0012" ])
+            
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/episode/e0022" ])
+        f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "ab")
+        f.write(r[0:0x1780]) # or 0x44FC
+        
+        for k in ["Head", "Single"]:
+            if ((vivoNames[starters[4]] + " " + k) in fossilNames):
+                temp = fossilNames.index(vivoNames[starters[4]] + " " + k)
+        f.write(temp.to_bytes(2, "little"))
+        f.write(r[0x1782:])
+        f.close()
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0022/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/episode/e0022" ])
+        shutil.rmtree("NDS_UNPACK/data/episode/bin/")
+        
+        # articleList = ["a", "a", "a", "a", "a"]
+        # for i in range(5):
+            # if (vivoLongNames[starters[i]][0] in ["A", "E", "I", "O", "U"]):
+                # articleList[i] = "an"
+        # oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
+        # newLong = [vivoLongNames[x][0:14] for x in starters]
+        # messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
+            # [(articleList[ind] + " $c4" + x) for ind, x in enumerate(newLong)] + newLong)
+        # messageReplace("0022", ["a Triceratops"], [articleList[4] + " " + vivoLongNames[starters[4]][0:14]])
+        oldNames = [vivoNames[x] for x in [102, 112, 118, 136, 73]]
+        newNames = [vivoNames[x] for x in starters]
+        new = open("newStarters.txt", "wt")
+        new.close()
+        new = open("newStarters.txt", "at")
+        for i in range(5):
+            new.write(oldNames[i] + " --> " + newNames[i] + "\n")
+        new.close()
+
+        for i in range(1, 5):
+            subprocess.run([ "fftool.exe", "NDS_UNPACK/data/battle_param/battle_param_defs_" + str(i) ])
+            f = open("NDS_UNPACK/data/battle_param/bin/battle_param_defs_" + str(i) + "/0.bin", "rb")
+            r = f.read()
+            f.close()
+            f = open("NDS_UNPACK/data/battle_param/bin/battle_param_defs_" + str(i) + "/0.bin", "wb")
+            f.close()
+            f = open("NDS_UNPACK/data/battle_param/bin/battle_param_defs_" + str(i) + "/0.bin", "ab")
+            loc = int.from_bytes(r[0x38:0x3C], "little") - 0x18
+            f.write(r[0:loc])
+            f.write(starters[i - 1].to_bytes(2, "little"))
+            f.write(r[(loc + 2):])
+            f.close()
+            subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/battle_param_defs_" + str(i),
+                "-c", "None", "-c", "None", "-i", "0.bin", "-o", "NDS_UNPACK/data/battle_param/battle_param_defs_" + str(i) ])
+        shutil.rmtree("NDS_UNPACK/data/battle_param/bin/")            
+        
     if ((res["team"] == "Yes") or (levelR != 0)):
         f = open("ffc_enemyNames.txt", "rt")
         eNames = list(f.read().split("\n"))

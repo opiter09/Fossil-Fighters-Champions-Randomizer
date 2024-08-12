@@ -1,5 +1,5 @@
 # Fossil-Fighters-Champions-Randomizer
-This is a digsite, color, and (hopefully in the future) teams randomizer for FFC.
+This is a digsite, color, starter, and (hopefully in the future) teams randomizer for FFC.
 
 You MUST put the ROM in the same folder as the exe, or it won't work.
 
@@ -12,8 +12,18 @@ Features:
   need to do to change this is edit the text input, making sure to use the vivosaurs' line
   numbers in ffc_vivoNames.txt [1], and separating each by a comma and any number of spaces.
   Also, all entries after the 25th will be ignored
-- DP vivos can, in fact, be dug up, and other things can turn into DP vivos accordingly,
-  since I actually know where they are in FFC
+- The custom starters will use up to 5 values, for Aeros, Toba, Tsintao, Dimetro, and
+  Tricera, in that order
+- Unfortunately, editing the text for this was causing massive problems, so the game will
+  not say what your new starters are. For that please consult the generated file
+  "newStarters.txt"
+- When reviving Tricera, the game is actually more normal than FF1 in a sense, in that it
+  will be all weird due to having no fossils of it. Tricera's ID shows up a bunch in the
+  event file and I don't feel like doing trial and error, so just deal with it, this is
+  only cosmetic
+- I have absolutely no idea how to deal with Treasure Lake's variable fossils, so they have
+  been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
+  starters are still available in Hot Spring Heights
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
