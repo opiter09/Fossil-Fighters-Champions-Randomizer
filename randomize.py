@@ -180,7 +180,7 @@ if (good == 1):
     # print(vivos.index(111))
     
     if ((res["start"] == "Yes") or (customR != "")):
-        if (res["dig"] == "Yes"):
+        if (res["dig"] == "No"):
             vivos = [0] + list(range(1, 150))
         starters = [ vivos[102], vivos[112], vivos[118], vivos[136], vivos[73] ]
         custom = list(customR.replace(" ", "").replace("\n", "").split(","))
