@@ -20,6 +20,8 @@ Features:
 - I have absolutely no idea how to deal with Treasure Lake's variable fossils, so they have
   been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
   starters are still available in Hot Spring Heights
+- Because of this text editing, this randomizer will only work on the English version of the
+  game, gomen'nasai
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
