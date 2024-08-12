@@ -1,5 +1,5 @@
 # Fossil-Fighters-Champions-Randomizer
-This is a digsite, color, starter, and (hopefully in the future) teams randomizer for FFC.
+This is a digsite, color, starter, and (hopefully) teams randomizer for FFC.
 
 You MUST put the ROM in the same folder as the exe, or it won't work.
 
