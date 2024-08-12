@@ -180,8 +180,6 @@ if (good == 1):
     # print(vivos.index(111))
     
     if ((res["start"] == "Yes") or (customR != "")):
-        if (res["dig"] == "No"):
-            vivos = [0] + list(range(1, 150))
         starters = [ vivos[102], vivos[112], vivos[118], vivos[136], vivos[73] ]
         custom = list(customR.replace(" ", "").replace("\n", "").split(","))
         custom = list(set(custom))
@@ -192,6 +190,8 @@ if (good == 1):
         for i in range(min(len(custom), 5)):
             starters[i] = custom[i]
         old = [102, 112, 118, 136, 73]
+        if (res["dig"] == "No"): # the starters will still be random, but everything else isn't for the digsite stuff below
+            vivos = [0] + list(range(1, 150))
         for i in range(5):
             x = vivos.index(min(149, starters[i]))
             y = vivos[old[i]]
@@ -278,7 +278,7 @@ if (good == 1):
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
-                                elif (used[i] in [900, 901, 902, 903]):
+                                elif ((used[i] in [900, 901, 902, 903]) and (res["dig"] == "Yes")):
                                     new = random.randint(900, 903)
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
@@ -353,13 +353,17 @@ if (good == 1):
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "wb")
         f.close()
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "ab")
-        f.write(r[0:0x1780]) # or 0x44FC
+        f.write(r[0:0x1780])
         
         for k in ["Head", "Single"]:
             if ((vivoNames[starters[4]] + " " + k) in fossilNames):
                 temp = fossilNames.index(vivoNames[starters[4]] + " " + k)
         f.write(temp.to_bytes(2, "little"))
-        f.write(r[0x1782:])
+        f.write(r[0x1782:0x1C74])
+        f.write(starters[4].to_bytes(2, "little"))
+        f.write(r[0x1C76:0x244C])
+        f.write(starters[4].to_bytes(2, "little"))
+        f.write(r[0x244E:])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0022/", "-c", "None", "-c", "None",
             "-i", "0.bin", "-o", "NDS_UNPACK/data/episode/e0022" ])

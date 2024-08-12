@@ -17,10 +17,6 @@ Features:
 - Unfortunately, editing the text for this was causing massive problems, so the game will
   not say what your new starters are. For that please consult the generated file
   "newStarters.txt"
-- When reviving Tricera, the game is actually more normal than FF1 in a sense, in that it
-  will be all weird due to having no fossils of it. Tricera's ID shows up a bunch in the
-  event file and I don't feel like doing trial and error, so just deal with it, this is
-  only cosmetic
 - I have absolutely no idea how to deal with Treasure Lake's variable fossils, so they have
   been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
   starters are still available in Hot Spring Heights
