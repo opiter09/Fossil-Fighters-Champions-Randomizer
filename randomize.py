@@ -182,7 +182,11 @@ if (good == 1):
     if ((res["start"] == "Yes") or (customR != "")):
         starters = [ vivos[102], vivos[112], vivos[118], vivos[136], vivos[73] ]
         custom = list(customR.replace(" ", "").replace("\n", "").split(","))
-        custom = list(set(custom))
+        temp = []
+        for c in custom:
+            if c not in temp:
+                temp.append(c)
+        custom = temp.copy()
         try:
             custom = [ max(1, min(149, int(x))) for x in custom ]
         except:
@@ -353,8 +357,7 @@ if (good == 1):
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "wb")
         f.close()
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "ab")
-        f.write(r[0:0x1780])
-        
+        f.write(r[0:0x1780])      
         for k in ["Head", "Single"]:
             if ((vivoNames[starters[4]] + " " + k) in fossilNames):
                 temp = fossilNames.index(vivoNames[starters[4]] + " " + k)
@@ -369,15 +372,17 @@ if (good == 1):
             "-i", "0.bin", "-o", "NDS_UNPACK/data/episode/e0022" ])
         shutil.rmtree("NDS_UNPACK/data/episode/bin/")
         
-        # articleList = ["a", "a", "a", "a", "a"]
-        # for i in range(5):
-            # if (vivoLongNames[starters[i]][0] in ["A", "E", "I", "O", "U"]):
-                # articleList[i] = "an"
+        articleList = ["a", "a", "a", "a", "a"]
+        for i in range(5):
+            if (vivoLongNames[starters[i]][0] in ["A", "E", "I", "O", "U"]):
+                articleList[i] = "an"
         # oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
         # newLong = [vivoLongNames[x][0:14] for x in starters]
         # messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
             # [(articleList[ind] + " $c4" + x) for ind, x in enumerate(newLong)] + newLong)
-        # messageReplace("0022", ["a Triceratops"], [articleList[4] + " " + vivoLongNames[starters[4]][0:14]])
+        
+        tricName = vivoLongNames[starters[4]]
+        messageReplace("0022", ["a $c2Triceratops Dino Medal"], [articleList[4] + " $c2" + tricName + "\nDino Medal"])
         oldNames = [vivoNames[x] for x in [102, 112, 118, 136, 73]]
         newNames = [vivoNames[x] for x in starters]
         new = open("newStarters.txt", "wt")
