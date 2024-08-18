@@ -14,9 +14,9 @@ Features:
   Also, all entries after the 25th will be ignored
 - The custom starters will use up to 5 values, for Aeros, Toba, Tsintao, Dimetro, and
   Tricera, in that order
-- Unfortunately, editing the text for this was causing massive problems, so the game will
-  not say what your new starters are. For that please consult the generated file
-  "newStarters.txt"
+- Due to how text replacing works, you may see multiple starters listed as the same one in
+  the rare case where one vanilla starter turns into another one that comes after it.
+  If that happens, you can consult the file "newStarters.txt" to see which is which
 - I have absolutely no idea how to deal with Treasure Lake's variable fossils, so they have
   been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
   starters are still available in Hot Spring Heights

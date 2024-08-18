@@ -77,7 +77,11 @@ def messageReplace(fileNum, oldList, newList):
         for j in range(min(len(oldList), len(newList))):
             temp = temp.replace(oldList[j], newList[j])
         temp = temp.encode("UTF-8", errors = "ignore")
-        byteList.append(r[loc:(loc + 8)] + temp)
+        align = 4 - (len(r[loc:(loc + 8)] + temp) % 4)
+        if (align < 4):
+            byteList.append(r[loc:(loc + 8)] + temp + bytes(align))
+        else:
+            byteList.append(r[loc:(loc + 8)] + temp)
     f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "wb")
     f.close()
     f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "ab")
@@ -367,10 +371,10 @@ if (good == 1):
         for i in range(5):
             if (vivoLongNames[starters[i]][0] in ["A", "E", "I", "O", "U"]):
                 articleList[i] = "an"
-        # oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
-        # newLong = [vivoLongNames[x][0:14] for x in starters]
-        # messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
-            # [(articleList[ind] + " $c4" + x) for ind, x in enumerate(newLong)] + newLong)
+        oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
+        newLong = [vivoLongNames[x] for x in starters]
+        messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
+            [(articleList[ind] + " $c4" + x) for ind, x in enumerate(newLong)] + newLong)
         
         tricName = vivoLongNames[starters[4]]
         messageReplace("0022", ["a $c2Triceratops Dino Medal"], [articleList[4] + " $c2" + tricName + "\nDino Medal"])
