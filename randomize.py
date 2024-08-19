@@ -370,7 +370,8 @@ if (good == 1):
         articleList = ["a", "a", "a", "a", "a"]
         for i in range(5):
             if (vivoLongNames[starters[i]][0] in ["A", "E", "I", "O", "U"]):
-                articleList[i] = "an"
+                if (vivoLongNames[starters[i]] != "Utahraptor"):
+                    articleList[i] = "an"
         oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
         newLong = [vivoLongNames[x] for x in starters]
         messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
