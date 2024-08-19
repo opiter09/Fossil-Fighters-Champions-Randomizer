@@ -374,8 +374,19 @@ if (good == 1):
                     articleList[i] = "an"
         oldLong = [vivoLongNames[x] for x in [102, 112, 118, 136, 73]]
         newLong = [vivoLongNames[x] for x in starters]
-        messageReplace("0012", [("a $c4" + x) for x in oldLong] + oldLong,
-            [(articleList[ind] + " $c4" + x) for ind, x in enumerate(newLong)] + newLong)
+        oldDesc = [
+            "That there's an $c4Aerosteon$c0. He's\na power type that overwhelms\nfoes with his sharp claws.",
+            "That's a fast-growing, well-balanced\nvivosaur called a $c4Toba Titanosaur$c0. \nIt's one'a yer more fashionable types.",
+            "Now that there's a $c4Tsintaosaurus$c0. \nIt's a backup-type vivosaur that \nhas great support skills.",
+            "And finally, we got a $c4Dimetrodon$c0.\nIt's a tricky technical type that\nconfounds foes with special skills."
+        ]
+        newDesc = [
+            "We've got " + articleList[0] + " $c4" + newLong[0] + "$c0,",
+            articleList[1] + " $c4" + newLong[1] + "$c0,",
+            articleList[2] + " $c4" + newLong[2] + "$c0,",
+            "and " + articleList[3] + " $c4" + newLong[3] + "$c0."
+        ]
+        messageReplace("0012", oldDesc + oldLong, newDesc + newLong)
         
         tricName = vivoLongNames[starters[4]]
         messageReplace("0022", ["a $c2Triceratops Dino Medal"], [articleList[4] + " $c2" + tricName + "\nDino Medal"])
