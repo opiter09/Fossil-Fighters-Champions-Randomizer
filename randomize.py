@@ -381,7 +381,7 @@ if (good == 1):
             "And finally, we got a $c4Dimetrodon$c0.\nIt's a tricky technical type that\nconfounds foes with special skills."
         ]
         newDesc = [
-            "We've got " + articleList[0] + " $c4" + newLong[0] + "$c0,",
+            "We got " + articleList[0] + " $c4" + newLong[0] + "$c0,",
             articleList[1] + " $c4" + newLong[1] + "$c0,",
             articleList[2] + " $c4" + newLong[2] + "$c0,",
             "and " + articleList[3] + " $c4" + newLong[3] + "$c0."
