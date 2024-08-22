@@ -170,6 +170,10 @@ if (good == 1):
         vivos[shift[i]] = x
     # print(vivos[111])
     # print(vivos.index(111))
+
+    vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n"))
+    vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n"))
+    fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
     
     if ((res["start"] == "Yes") or (customR != "")):
         if (res["start"] == "Yes"):
@@ -205,10 +209,7 @@ if (good == 1):
             y = vivos[old[i]]
             vivos[x] = y
             vivos[old[i]] = min(149, starters[i])
-        
-    vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n"))
-    vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n"))
-    fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
+
     fossilTable = { "Head": [0], "Body": [0], "Arms": [0], "Legs": [0] }
     for v in vivoNames:
         for k in fossilTable.keys():
