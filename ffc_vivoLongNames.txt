@@ -190,6 +190,12 @@ Boney Tapejara
 Boney Plesiosaurus
 Zongazonga
 Lord Tonzilla
+Pachyrhinosaurus [Debug]
+Dilophosaurus [Debug]
+Shonisaurus [Debug]
+Tyrannosaurus [Debug]
+Dimorphodon [Debug]
+Therizinosaurus [Debug]
 Dinaurian Roboguard
 Duna
 Raptin

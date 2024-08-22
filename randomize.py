@@ -173,7 +173,11 @@ if (good == 1):
     
     if ((res["start"] == "Yes") or (customR != "")):
         if (res["start"] == "Yes"):
+            shift = 0
             starters = [ vivos[102], vivos[112], vivos[118], vivos[136], vivos[73] ]
+            while ((102 in starters) or (112 in starters) or (118 in starters) or (136 in starters) or (73 in starters)):
+                shift = shift + 1
+                starters = [ vivos[102 - shift], vivos[112 - shift], vivos[118 - shift], vivos[136 - shift], vivos[73 - shift] ]
         else:
             starters = [102, 112, 118, 136, 73]
         custom = list(customR.replace(" ", "").replace("\n", "").split(","))
@@ -183,7 +187,7 @@ if (good == 1):
                 temp.append(c)
         custom = temp.copy()
         try:
-            custom = [ max(1, min(149, int(x))) for x in custom ]
+            custom = [ max(1, min(210, int(x))) for x in custom ]
         except:
             custom = []  
         for i in range(min(len(custom), 5)):
@@ -197,15 +201,15 @@ if (good == 1):
             vivos[x] = y
             vivos[old[i]] = min(149, starters[i])
         
-    vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n")[0:149])
-    vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n")[0:149])
+    vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n"))
+    vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n"))
     fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
     fossilTable = { "Head": [0], "Body": [0], "Arms": [0], "Legs": [0] }
     for v in vivoNames:
         for k in fossilTable.keys():
             if ((v + " " + k) in fossilNames):
                 fossilTable[k].append(fossilNames.index(v + " " + k))
-            elif (v != "NONE"):
+            elif ((v + " Single") in fossilNames):
                 fossilTable[k].append(fossilNames.index(v + " Single"))
     # print(fossilTable["Head"])
 
@@ -286,8 +290,10 @@ if (good == 1):
                                 p = temp[used[i] - 995]
                                 if ((vivoNames[starters[4]] + " Single") in fossilNames):
                                     new = fossilNames.index(vivoNames[starters[4]] + " Single")
-                                else:
+                                elif ((vivoNames[starters[4]] + " " + p) in fossilNames):
                                     new = fossilNames.index(vivoNames[starters[4]] + " " + p)
+                                else:
+                                    new = 565 # Dikelo Single
                                 f.write(new.to_bytes(2, "little"))
                                 check = 1
                             if (check == 0):
@@ -339,7 +345,7 @@ if (good == 1):
         temp = [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4]
         f.write(r[0:places[0]])
         for i in range(len(places) - 1):
-            f.write(temp[i].to_bytes(2, "little"))
+            f.write(starters[temp[i]].to_bytes(2, "little"))
             f.write(r[(places[i] + 2):places[i + 1]])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0012/", "-c", "None", "-c", "None",
@@ -352,15 +358,18 @@ if (good == 1):
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "wb")
         f.close()
         f = open("NDS_UNPACK/data/episode/bin/e0022/0.bin", "ab")
-        f.write(r[0:0x1780])      
+        f.write(r[0:0x1780])
+        temp = 565 # Dikelo Single
+        revi = 149
         for k in ["Head", "Single"]:
             if ((vivoNames[starters[4]] + " " + k) in fossilNames):
                 temp = fossilNames.index(vivoNames[starters[4]] + " " + k)
+                revi = starters[4]
         f.write(temp.to_bytes(2, "little"))
         f.write(r[0x1782:0x1C74])
-        f.write(starters[4].to_bytes(2, "little"))
+        f.write((revi).to_bytes(2, "little"))
         f.write(r[0x1C76:0x244C])
-        f.write(starters[4].to_bytes(2, "little"))
+        f.write((revi).to_bytes(2, "little"))
         f.write(r[0x244E:])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0022/", "-c", "None", "-c", "None",
