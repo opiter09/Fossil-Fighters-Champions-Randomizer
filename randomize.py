@@ -192,6 +192,11 @@ if (good == 1):
             custom = []  
         for i in range(min(len(custom), 5)):
             starters[i] = custom[i]
+        temp = 149 # Dikelo
+        for k in ["Head", "Single"]:
+            if ((vivoNames[starters[4]] + " " + k) in fossilNames):
+                temp = starters[4]
+        starters[4] = temp
         old = [102, 112, 118, 136, 73]
         if (res["dig"] == "No"): # the starters will still be random, but everything else isn't for the digsite stuff below
             vivos = [0] + list(range(1, 150))
@@ -367,9 +372,9 @@ if (good == 1):
                 revi = starters[4]
         f.write(temp.to_bytes(2, "little"))
         f.write(r[0x1782:0x1C74])
-        f.write((revi).to_bytes(2, "little"))
+        f.write(revi.to_bytes(2, "little"))
         f.write(r[0x1C76:0x244C])
-        f.write((revi).to_bytes(2, "little"))
+        f.write(revi.to_bytes(2, "little"))
         f.write(r[0x244E:])
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0022/", "-c", "None", "-c", "None",
