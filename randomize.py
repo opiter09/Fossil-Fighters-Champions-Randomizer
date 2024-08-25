@@ -102,6 +102,7 @@ layout = [
     [ psg.Text("Randomize Starters?", size = 17), psg.Button("Yes", key = "start", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
+    [ psg.Text("Mono-Spawn Mode?", size = 17), psg.Button("No", key = "mono", size = 5) ],
     [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 20, enable_events = True) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
@@ -112,7 +113,7 @@ layout = [
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "start": "Yes", "include": "No", "team": "No", "color": "No", "jewel": "Yes" }
+res = { "dig": "Yes", "start": "Yes", "include": "No", "team": "No", "color": "No", "mono": "No", "jewel": "Yes" }
 brokenR = ""
 levelR = 0
 while True:
@@ -234,6 +235,7 @@ if (good == 1):
                     f = open(os.path.join(root, file), "rb")
                     r = f.read()
                     f.close()
+                    first = {"Head": 0, "Body": 0, "Arms": 0, "Legs": 0}
                     mapN = os.path.join(root, file).split("\\")[-2]
                     if (os.path.exists("NDS_UNPACK/data/map/e/" + mapN) == False):
                         continue
@@ -263,9 +265,6 @@ if (good == 1):
                                 thisStart = startSpawns + (j * 8)
                                 kasekiNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                                 used[thisStart + 2] = kasekiNum
-                    singles = {}
-                    for fos in fossilTable["Head"]:
-                        singles[fos] = -1
                     for i in range(0, len(r), 2):
                         if (i in used.keys()):
                             check = 0
@@ -273,18 +272,23 @@ if (good == 1):
                             for p in temp:
                                 if (used[i] in fossilTable[p]):
                                     if (fossilNames[used[i]].endswith("Single") == True):
-                                        singles[used[i]] = singles[used[i]] + 1
-                                        if (singles[used[i]] >= 4):
-                                            singles[used[i]] = 0
                                         old = fossilTable[p].index(used[i])
-                                        new = fossilTable[temp[singles[used[i]]]][vivos[old]]
+                                        new = fossilTable["Head"][vivos[old]]
+                                        if (first[p] == 0):
+                                            for t in temp:
+                                                first[t] = fossilTable[t][vivos[old]]
                                         # print(fossilNames[used[i]])
                                         # print(fossilNames[new])
                                         # print("\n")
                                     else:
                                         old = fossilTable[p].index(used[i])
                                         new = fossilTable[p][vivos[old]]
-                                    f.write(new.to_bytes(2, "little"))
+                                        if (first[p] == 0):
+                                            first[p] = new
+                                    if ((res["mono"] == "Yes") and (mapN != "3000")):
+                                        f.write(first[p].to_bytes(2, "little"))
+                                    else:
+                                        f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
                                 elif ((used[i] in [900, 901, 902, 903]) and (res["dig"] == "Yes")):
@@ -300,7 +304,12 @@ if (good == 1):
                                     new = fossilNames.index(vivoNames[starters[4]] + " " + p)
                                 else:
                                     new = 565 # Dikelo Single
-                                f.write(new.to_bytes(2, "little"))
+                                if ((res["mono"] == "Yes") and (mapN != "3000")):
+                                    if (first[p] == 0):
+                                        first[p] = new
+                                    f.write(first[p].to_bytes(2, "little"))
+                                else:
+                                    f.write(new.to_bytes(2, "little"))
                                 check = 1
                             if (check == 0):
                                f.write(r[i:(i + 2)]) 

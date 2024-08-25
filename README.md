@@ -7,6 +7,8 @@ Features:
 - You can only dig up the main 149
 - Vivos are matched 1-to-1, so nothing is impossible to get
 - Silver Fossils are also randomized among themselves
+- Vivos which replace single-fossil ones (curious or giant) will only spawn their heads. This
+  was deemed the least intrusive option, I'm afraid
 - The three vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
   the Rainbow Canyon PTD, in FFC's case). These are Nigo, Krypto, Pacro, and Machai. All you
   need to do to change this is edit the text input, making sure to use the vivosaurs' line
@@ -22,6 +24,9 @@ Features:
   starters are still available in Hot Spring Heights
 - Because of this text editing, this randomizer will only work on the English version of the
   game, gomen'nasai
+- Mono-Spawn Mode makes it so each map [2] only spawns one vivo (along with jewels, Silver
+  Fossils, etc.). The exception is the main area of Treasure Lake, so you have a good
+  foundation and aren't completely at the mercy of RNG
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
@@ -33,7 +38,7 @@ Features:
    
 If you would like to see the table of new spawns, see the "ffc_digsiteOutput.txt" the
 randomizer generates. Unlike FF1, we don't have map names associated to everything, so
-you'll have to look at the shapes of the zone maps in FFC-E-Maps-Color.zip to figure out
+you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
 which area is which.
 
 Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
@@ -45,6 +50,9 @@ WINE: https://www.winehq.org
 [1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
 It is much simpler to use the former, so just deal with having to open a text file once in 
 a while.
+
+[2]: I mean this in the more internal sense of "a continuous area with no loading zones in
+between", not a whole digsite.
 
 # Source Codes
 - FFTool: https://github.com/jianmingyong/Fossil-Fighters-Tool
