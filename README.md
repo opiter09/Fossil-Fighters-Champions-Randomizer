@@ -9,11 +9,11 @@ Features:
 - Silver Fossils are also randomized among themselves
 - Vivos which replace single-fossil ones (curious or giant) will only spawn their heads. This
   was deemed the least intrusive option, I'm afraid
-- The three vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
-  the Rainbow Canyon PTD, in FFC's case). These are Nigo, Krypto, Pacro, and Machai. All you
-  need to do to change this is edit the text input, making sure to use the vivosaurs' line
-  numbers in ffc_vivoNames.txt [1], and separating each by a comma and any number of spaces.
-  Also, all entries after the 25th will be ignored
+- The six vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
+  the Rainbow Canyon PTDs, in FFC's case). These are Zino, Centro, Nigo, Krypto, Pacro, and
+  Machai. All you need to do to change this is edit the text input, making sure to use the
+  vivosaurs' line numbers in ffc_vivoNames.txt [1], and separating each by a comma and any
+  number of spaces. Also, all entries after the 25th will be ignored
 - The custom starters will use up to 5 values, for Aeros, Toba, Tsintao, Dimetro, and
   Tricera, in that order. These values can be from 1 to 210, except Tricera--the legendaries
   don't have fossils in FFC, so if you pick a number above 149 Tricera will turn into Dikelo

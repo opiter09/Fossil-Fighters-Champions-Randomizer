@@ -104,7 +104,7 @@ layout = [
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
     [ psg.Text("Mono-Spawn Mode?", size = 17), psg.Button("No", key = "mono", size = 5) ],
     [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 20, enable_events = True) ],
-    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "105, 114, 119, 128", key = "broken",
+    [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "43, 76, 105, 114, 119, 128", key = "broken",
         size = 20, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
