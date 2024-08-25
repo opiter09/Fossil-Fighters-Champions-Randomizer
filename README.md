@@ -28,7 +28,7 @@ Features:
   Fossils, etc.). The exception is the main area of Treasure Lake, so you have a good
   foundation and aren't completely at the mercy of RNG
 - Said vivo is the first found in the file, so some related maps will have the same one, and
-  others won't
+  others won't. Also, to be clear, with this on you will not be able to get every vivosaur
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
