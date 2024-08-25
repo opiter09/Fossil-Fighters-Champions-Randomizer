@@ -27,6 +27,8 @@ Features:
 - Mono-Spawn Mode makes it so each map [2] only spawns one vivo (along with jewels, Silver
   Fossils, etc.). The exception is the main area of Treasure Lake, so you have a good
   foundation and aren't completely at the mercy of RNG
+- Said vivo is the first found in the file, so some related maps will have the same one, and
+  others won't
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
