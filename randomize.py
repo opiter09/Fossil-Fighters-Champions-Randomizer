@@ -103,9 +103,9 @@ layout = [
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
     [ psg.Text("Mono-Spawn Mode?", size = 17), psg.Button("No", key = "mono", size = 5) ],
-    [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 20, enable_events = True) ],
+    [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 22, enable_events = True) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "43, 76, 105, 114, 119, 128", key = "broken",
-        size = 20, enable_events = True) ],
+        size = 22, enable_events = True) ],
     [ psg.Text("PGV's in Teams?", size = 17), psg.Button("No", key = "include", size = 5) ],
     [ psg.Text("Team Level Change:", size = 17), psg.Input(default_text = "0", key = "level", size = 5, enable_events = True) ],
     [ psg.Text("TLC on Nameless?", size = 17), psg.Button("Yes", key = "jewel", size = 5) ],
@@ -236,6 +236,8 @@ if (good == 1):
                     r = f.read()
                     f.close()
                     first = {"Head": 0, "Body": 0, "Arms": 0, "Legs": 0}
+                    silver = [900, 901, 902, 903]
+                    random.shuffle(silver)
                     mapN = os.path.join(root, file).split("\\")[-2]
                     if (os.path.exists("NDS_UNPACK/data/map/e/" + mapN) == False):
                         continue
@@ -292,7 +294,7 @@ if (good == 1):
                                     check = 1
                                     break
                                 elif ((used[i] in [900, 901, 902, 903]) and (res["dig"] == "Yes")):
-                                    new = random.randint(900, 903)
+                                    new = silver[used[i] - 900]
                                     f.write(new.to_bytes(2, "little"))
                                     check = 1
                                     break
