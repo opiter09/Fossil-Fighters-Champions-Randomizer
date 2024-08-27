@@ -287,7 +287,7 @@ if (good == 1):
                                         new = fossilTable[p][vivos[old]]
                                         if (first[p] == 0):
                                             first[p] = new
-                                    if ((res["mono"] == "Yes") and (mapN != "3000")):
+                                    if (res["mono"] == "Yes"):
                                         f.write(first[p].to_bytes(2, "little"))
                                     else:
                                         f.write(new.to_bytes(2, "little"))
