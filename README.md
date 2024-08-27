@@ -25,8 +25,8 @@ Features:
 - Because of this text editing, this randomizer will only work on the English version of the
   game, gomen'nasai
 - Mono-Spawn Mode makes it so each map [2] only spawns one vivo (along with jewels, Silver
-  Fossils, etc.). Notably, this means that whoever replaces Tricera will only have their head
-  fossil, since the main part of Treasure Lake will be all fossils of whoever replaces Pacro
+  Fossils, etc.). However, to ensure all of its fossils are available whoever replaces
+  Tricera still spawns there instead of the variable fossils
 - Said vivo is the first found in the file, so some related maps will have the same one, and
   others won't. Also, to be clear, with this on you will not be able to get every vivosaur
 - The color randomization refers to the palette changes Super Fossils make. Due to

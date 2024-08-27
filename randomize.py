@@ -306,12 +306,7 @@ if (good == 1):
                                     new = fossilNames.index(vivoNames[starters[4]] + " " + p)
                                 else:
                                     new = 565 # Dikelo Single
-                                if ((res["mono"] == "Yes") and (mapN != "3000")):
-                                    if (first[p] == 0):
-                                        first[p] = new
-                                    f.write(first[p].to_bytes(2, "little"))
-                                else:
-                                    f.write(new.to_bytes(2, "little"))
+                                f.write(new.to_bytes(2, "little"))
                                 check = 1
                             if (check == 0):
                                f.write(r[i:(i + 2)]) 
