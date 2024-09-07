@@ -6,9 +6,9 @@ import sys
 import FreeSimpleGUI as psg
 
 def digsiteOutput():
-    text = open("ffc_digsiteOutput.txt", "wt")
+    text = open("newDigsiteSpawns.txt", "wt")
     text.close()
-    text = open("ffc_digsiteOutput.txt", "at")
+    text = open("newDigsiteSpawns.txt", "at")
     for root, dirs, files in os.walk("NDS_UNPACK/data/map/m/bin/"):
         for file in files:
             if (file == "0.bin"):

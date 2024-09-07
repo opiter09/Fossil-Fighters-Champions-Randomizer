@@ -38,7 +38,7 @@ Features:
   zombiesaurs among themselves. "True" legendaries (Zongazonga, Tonzilla, etc.) are
   entirely untouched
    
-If you would like to see the table of new spawns, see the "ffc_digsiteOutput.txt" the
+If you would like to see the table of new spawns, see the "newDigsiteSpawns.txt" the
 randomizer generates. Unlike FF1, we don't have map names associated to everything, so
 you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
 which area is which.
