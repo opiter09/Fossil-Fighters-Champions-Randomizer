@@ -26,7 +26,7 @@ Features:
   game, gomen'nasai
 - Mono-Spawn Mode makes it so each map [2] only spawns one vivo (along with jewels, Silver
   Fossils, etc.). However, to ensure all of its fossils are available whoever replaces
-  Tricera still spawns there instead of the variable fossils
+  Tricera still spawns in Treasure Lake instead of the variable fossils
 - Said vivo is the first found in the file, so some related maps will have the same one, and
   others won't. Also, to be clear, with this on you will not be able to get every vivosaur
 - The color randomization refers to the palette changes Super Fossils make. Due to
