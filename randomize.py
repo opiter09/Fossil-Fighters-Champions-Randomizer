@@ -514,6 +514,30 @@ if (good == 1):
             f.write(pal.to_bytes(2, "little"))
             f.write(r[(i + 4):(i + 12)])
         f.close()
+        
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/etc/creature_defs" ])
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "ab")
+        one = int.from_bytes(r[44:48], "little")
+        f.write(r[0:one])
+        for i in range(210):
+            oldOffset = int.from_bytes(r[(44 + (i * 4)):(48 + (i * 4))], "little")
+            newOffset = int.from_bytes(r[(48 + (i * 4)):(52 + (i * 4))], "little")
+            if (i == 209):
+                newOffset = len(r)
+            f.write(r[oldOffset:(oldOffset + 0x46)])
+            for j in range(4):
+                v = random.randint(0, 0x276)
+                f.write(v.to_bytes(2, "little"))
+            f.write(r[(oldOffset + 0x4E):newOffset])
+        f.close()
+
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-i", "0.bin", "-o",
+            "NDS_UNPACK/data/etc/creature_defs" ])
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-i", "0.bin", "-o",
             "NDS_UNPACK/data/etc/creature_palet_defs" ])
         shutil.rmtree("NDS_UNPACK/data/etc/bin/")

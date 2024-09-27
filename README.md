@@ -29,9 +29,9 @@ Features:
   Tricera still spawns in Treasure Lake instead of the variable fossils
 - Said vivo is the first found in the file, so some related maps will have the same one, and
   others won't. Also, to be clear, with this on you will not be able to get every vivosaur
-- The color randomization refers to the palette changes Super Fossils make. Due to
-  complications with editing individual vivosaur data, many vivosaurs which changed to
-  the same palette before will change to the same modified one after
+- The color randomization refers to the palette changes Super Fossils make. This does not
+  change the VMM or lower-screen battle sprites, however, because that would be basically
+  impossible to automate lol
 - Particle randomizing changes an unusual value in each vivosaur's data which controls
   their moves' particle effects, camera positions, and how many hits/damage values are
   shown. This will not effect the motions of the vivosaur itself, since that is
