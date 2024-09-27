@@ -102,6 +102,7 @@ layout = [
     [ psg.Text("Randomize Starters?", size = 17), psg.Button("Yes", key = "start", size = 5) ],
     [ psg.Text("Randomize Teams?", size = 17), psg.Button("No", key = "team", size = 5) ],
     [ psg.Text("Randomize Colors?", size = 17), psg.Button("No", key = "color", size = 5) ],
+    [ psg.Text("Randomize Particles?", size = 17), psg.Button("No", key = "anim", size = 5) ],
     [ psg.Text("Mono-Spawn Mode?", size = 17), psg.Button("No", key = "mono", size = 5) ],
     [ psg.Text("Custom Starters:", size = 17), psg.Input(default_text = "", key = "custom", size = 22, enable_events = True) ],
     [ psg.Text("Post-Game Vivos:", size = 17), psg.Input(default_text = "43, 76, 105, 114, 119, 128", key = "broken",
@@ -113,7 +114,7 @@ layout = [
 ]
 window = psg.Window("", layout, grab_anywhere = True, resizable = True, font = "-size 12")
 good = 0
-res = { "dig": "Yes", "start": "Yes", "include": "No", "team": "No", "color": "No", "mono": "No", "jewel": "Yes" }
+res = { "dig": "Yes", "start": "Yes", "include": "No", "team": "No", "color": "No", "anim": "No", "mono": "No", "jewel": "Yes" }
 brokenR = ""
 levelR = 0
 while True:
@@ -515,6 +516,33 @@ if (good == 1):
         f.close()
         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-i", "0.bin", "-o",
             "NDS_UNPACK/data/etc/creature_palet_defs" ])
+        shutil.rmtree("NDS_UNPACK/data/etc/bin/")
+        
+    if (res["anim"] == "Yes"):
+        anims = list(range(1, 205))
+        random.shuffle(anims)
+        anims = [0] + anims
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/etc/creature_defs" ])
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "ab")
+        one = int.from_bytes(r[44:48], "little")
+        f.write(r[0:one])
+        for i in range(210):
+            oldOffset = int.from_bytes(r[(44 + (i * 4)):(48 + (i * 4))], "little")
+            newOffset = int.from_bytes(r[(48 + (i * 4)):(52 + (i * 4))], "little")
+            if (i == 209):
+                newOffset = len(r)
+            f.write(r[oldOffset:(oldOffset + 0x42)])
+            oldAnim = int.from_bytes(r[(oldOffset + 0x42):(oldOffset + 0x44)], "little")
+            f.write(anims[oldAnim].to_bytes(2, "little"))
+            f.write(r[(oldOffset + 0x44):newOffset])
+        f.close()
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-i", "0.bin", "-o",
+            "NDS_UNPACK/data/etc/creature_defs" ])
         shutil.rmtree("NDS_UNPACK/data/etc/bin/")
 
     subprocess.run([ "dslazy.bat", "PACK", "out.nds" ])

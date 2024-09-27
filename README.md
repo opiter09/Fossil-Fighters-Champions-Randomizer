@@ -32,11 +32,17 @@ Features:
 - The color randomization refers to the palette changes Super Fossils make. Due to
   complications with editing individual creature data, many vivosaurs which changed to
   the same palette before will change to the same different one after
+- Particle randomizing changes an unusual value in each vivosaur's data which controls
+  their moves' particle effects, camera positions, and how many hits/damage values are
+  shown. This will not effect the motions of the vivosaur itself, since that is
+  tied to the model, so really this is more of a joke option than anything else (it was
+  requested on the Fossil Fighters Discord)
 - Team Randomization is HIGHLY experimental. If you get crashes on story fights, please
   let me know and...well I'll just have to disable it again, lol
 - The teams randomization randomizes regular vivos, super evolvers, boneysaurs, and
   zombiesaurs among themselves. "True" legendaries (Zongazonga, Tonzilla, etc.) are
-  entirely untouched
+  entirely untouched. Note that each vivosaur is randomized separately, not shuffled
+  around as with the fossils
    
 If you would like to see the table of new spawns, see the "newDigsiteSpawns.txt" the
 randomizer generates. Unlike FF1, we don't have map names associated to everything, so
