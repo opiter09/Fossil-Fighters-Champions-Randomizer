@@ -9,6 +9,9 @@ Features:
 - Silver Fossils are also randomized among themselves
 - Vivos which replace single-fossil ones (curious or giant) will only spawn their heads. This
   was deemed the least intrusive option, I'm afraid
+- "Team Level Change:" raises or lowers (you can use negatives with a "-") the levels of all
+  vivosaurs in all enemy teams. If you set "TLC on Nameless?" to "No", this will not affect
+  random fighters (i.e. the ones named "Fossil Fighter")
 - The six vivosaurs listed in the box Post-Game Vivos, naturally, only appear post-game (so
   the Rainbow Canyon PTDs, in FFC's case). These are Zino, Centro, Nigo, Krypto, Pacro, and
   Machai. All you need to do to change this is edit the text input, making sure to use the
