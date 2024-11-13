@@ -41,7 +41,10 @@ Features:
   tied to the model, so really this is more of a joke option than anything else (it was
   requested on the Fossil Fighters Discord)
 - Team Randomization is HIGHLY experimental. If you get crashes on story fights, please
-  let me know and...well I'll just have to disable it again, lol
+  let me know and...well I'll just have to disable it again, lol. However, if you get a
+  crash on the Todd/Rupert tutorial while using TwilightMenu++, know that this is only an
+  issue with that program, and you can complete the sequence on MelonDS and then transfer
+  the save back
 - The teams randomization randomizes regular vivos, super evolvers, boneysaurs, and
   zombiesaurs among themselves. "True" legendaries (Zongazonga, Tonzilla, etc.) are
   entirely untouched. Note that each vivosaur is randomized separately, not shuffled
