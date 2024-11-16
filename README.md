@@ -40,8 +40,6 @@ Features:
   shown. This will not effect the motions of the vivosaur itself, since that is
   tied to the model, so really this is more of a joke option than anything else (it was
   requested on the Fossil Fighters Discord)
-- Team Randomization is HIGHLY experimental. If you get crashes on story fights, please
-  let me know and...well I'll just have to disable it again, lol
 - The teams randomization randomizes regular vivos, super evolvers, boneysaurs, and
   zombiesaurs among themselves. "True" legendaries (Zongazonga, Tonzilla, etc.) are
   entirely untouched. Note that each vivosaur is randomized separately, not shuffled

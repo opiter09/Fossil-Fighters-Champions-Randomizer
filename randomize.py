@@ -487,9 +487,9 @@ if (good == 1):
                         vivoNumbers = []
                         for i in range(numVivos):
                             vivoNum = int.from_bytes(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)], "little")
-                            vivoNumbers.append(vivoNum)
                             listOfLists = [ [1, 149], [150, 179], [180, 183], [184, 190] ]
                             check = 0
+                            newVivo = 0
                             for L in listOfLists:
                                 if ((vivoNum in list(range(L[0], L[1] + 1))) and (res["team"] == "Yes")):
                                     if (res["include"] == "Yes"):
@@ -503,7 +503,9 @@ if (good == 1):
                                     check = 1
                                     break
                             if (check == 0):
+                                newVivo = int.from_bytes(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)], "little")
                                 f.write(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)])
+                            vivoNumbers.append(newVivo)
                             if (levelR != 0):
                                 oldLevel = int.from_bytes(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)], "little")
                                 newLevel = max(1, min(oldLevel + levelR, 20))
