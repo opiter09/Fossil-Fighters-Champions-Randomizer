@@ -50,7 +50,7 @@ randomizer generates. Unlike FF1, we don't have map names associated to everythi
 you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
 which area is which.
 
-Also, you download this by pressing the green "Code" button and choosing "Download ZIP," and
+Also, you download this by pressing the green "Code" button and choosing "Download ZIP", and
 you run it by dragging and dropping an FFC ROM onto randomize.exe.
 
 Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
