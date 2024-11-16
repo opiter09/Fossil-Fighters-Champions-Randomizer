@@ -231,7 +231,21 @@ if (good == 1):
         "NDS_UNPACK/arm9x.bin" ])
     if (os.path.exists("NDS_UNPACK/arm9x.bin") == True):
         os.remove("NDS_UNPACK/arm9.bin")
-        os.rename("NDS_UNPACK/arm9x.bin", "NDS_UNPACK/arm9.bin") 
+        os.rename("NDS_UNPACK/arm9x.bin", "NDS_UNPACK/arm9.bin")
+
+    moveLevels = []
+    subprocess.run([ "fftool.exe", "NDS_UNPACK/data/etc/creature_defs" ])
+    f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "rb")
+    zero = f.read()
+    f.close()
+    moveLevels.append([0, 0, 0])
+    for i in range(210):
+        oldOffset = int.from_bytes(zero[(44 + (i * 4)):(48 + (i * 4))], "little")
+        ml2 = zero[oldOffset + 0xC6]
+        ml3 = zero[oldOffset + 0xC8]
+        ml4 = zero[oldOffset + 0xCA]
+        moveLevels.append([ml2, ml3, ml4])
+    shutil.rmtree("NDS_UNPACK/data/etc/bin/")
     
     if ((res["dig"] == "Yes") or (res["start"] == "Yes") or (customR != "")):
         subprocess.run([ "fftool.exe", "NDS_UNPACK/data/map/m" ])
@@ -469,8 +483,11 @@ if (good == 1):
                         mapN = os.path.join(root, file).split("\\")[-2]
                         numVivos = r[0x58 + shift]
                         f.write(r[0:(0x70 + shift)])
+                        vivoLevels = []
+                        vivoNumbers = []
                         for i in range(numVivos):
                             vivoNum = int.from_bytes(r[(0x70 + shift + (i * 12)):(0x70 + shift + (i * 12) + 2)], "little")
+                            vivoNumbers.append(vivoNum)
                             listOfLists = [ [1, 149], [150, 179], [180, 183], [184, 190] ]
                             check = 0
                             for L in listOfLists:
@@ -492,12 +509,25 @@ if (good == 1):
                                 newLevel = max(1, min(oldLevel + levelR, 20))
                                 f.write(newLevel.to_bytes(2, "little"))
                             else:
+                                newLevel = int.from_bytes(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)], "little")
                                 f.write(r[(0x70 + shift + (i * 12) + 2):(0x70 + shift + (i * 12) + 4)])
+                            vivoLevels.append(newLevel)
                             f.write(r[(0x70 + shift + (i * 12) + 4):(0x70 + shift + (i * 12) + 12)])
                         f.write(r[(0x70 + shift + (numVivos * 12)):(0x70 + shift + (numVivos * 16))])
-                        # for i in range(numVivos):
-                            # f.write((4).to_bytes(2, "little"))
-                        f.write(r[(0x70 + shift + (numVivos * 16)):])
+                        for i in range(numVivos):
+                            vNum = vivoNumbers[i]
+                            lev = vivoLevels[i]
+                            fos = 0
+                            if (lev < moveLevels[vNum][0]):
+                                fos = 1
+                            elif (lev < moveLevels[vNum][1]):
+                                fos = 2
+                            elif (lev < moveLevels[vNum][2]):
+                                fos = 3
+                            else:
+                                fos = 4
+                            f.write(fos.to_bytes(2, "little"))
+                        f.write(r[(0x70 + shift + (numVivos * 16) + (numVivos * 2)):])
                         f.close()
                         subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/battle_param/bin/" + mapN, "-c", "None", "-c",
                             "None", "-i", "0.bin", "-o", "NDS_UNPACK/data/battle_param/" + mapN ])
