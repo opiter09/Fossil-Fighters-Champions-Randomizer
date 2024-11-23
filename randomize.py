@@ -248,6 +248,25 @@ if (good == 1):
     shutil.rmtree("NDS_UNPACK/data/etc/bin/")
     
     if ((res["dig"] == "Yes") or (res["start"] == "Yes") or (customR != "")):
+        subprocess.run([ "fftool.exe", "NDS_UNPACK/data/episode/e0023" ])
+        f = open("NDS_UNPACK/data/episode/bin/e0023/0.bin", "rb")
+        r = f.read()
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0023/0.bin", "wb")
+        f.close()
+        f = open("NDS_UNPACK/data/episode/bin/e0023/0.bin", "ab")
+        f.write(r[0:0x2C84])
+        temp = 565 # Dikelo Single
+        for k in ["Head", "Single"]:
+            if ((vivoNames[vivos[119]] + " " + k) in fossilNames):
+                temp = fossilNames.index(vivoNames[vivos[119]] + " " + k)
+        f.write(temp.to_bytes(2, "little"))
+        f.write(r[0x2C86:])
+        f.close()
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/episode/bin/e0023/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/episode/e0023" ])
+        shutil.rmtree("NDS_UNPACK/data/episode/bin/")
+
         subprocess.run([ "fftool.exe", "NDS_UNPACK/data/map/m" ])
         for root, dirs, files in os.walk("NDS_UNPACK/data/map/m/bin"):
             for file in files:
