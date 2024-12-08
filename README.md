@@ -3,6 +3,10 @@ This is a digsite, color, starter, and teams randomizer for FFC.
 
 You MUST put the ROM in the same folder as the exe, or it won't work.
 
+NOTE: If the game freezes at the Nintendo logo, this is most likely an issue with the
+base ROM you are using, not the randomizer. You will have to acquire a ROM from somewhere
+else in this case.
+
 Features:
 - You can only dig up the main 149
 - Vivos are matched 1-to-1, so nothing is impossible to get
