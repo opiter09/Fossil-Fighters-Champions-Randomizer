@@ -1,7 +1,12 @@
 # Fossil-Fighters-Champions-Randomizer
 This is a digsite, color, starter, and teams randomizer for FFC.
 
-You MUST put the ROM in the same folder as the exe, or it won't work.
+You download this by pressing the green "Code" button and choosing "Download ZIP", and
+you run it by dragging and dropping an FFC ROM onto randomize.exe. Note that you MUST put
+the ROM in the same folder as the exe, or it won't work.
+
+Furthermore, this is only designed for Windows. For Mac and Linux, I can only point you to
+WINE: https://www.winehq.org
 
 NOTE: If the game freezes at the Nintendo logo, this is most likely an issue with the
 base ROM you are using, not the randomizer. You will have to legally acquire a ROM from
@@ -53,12 +58,6 @@ If you would like to see the table of new spawns, see the "newDigsiteSpawns.txt"
 randomizer generates. Unlike FF1, we don't have map names associated to everything, so
 you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
 which area is which.
-
-Also, you download this by pressing the green "Code" button and choosing "Download ZIP", and
-you run it by dragging and dropping an FFC ROM onto randomize.exe.
-
-Finally, this normally only works on Windows. For Mac and Linux, I can only point you to
-WINE: https://www.winehq.org
 
 [1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
 It is much simpler to use the former, so just deal with having to open a text file once in 
