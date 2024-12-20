@@ -54,7 +54,7 @@ Features:
   entirely untouched. Note that each vivosaur is randomized separately, not shuffled
   around as with the fossils
    
-If you would like to see the table of new spawns, see the "newDigsiteSpawns.txt" the
+Finally, if you would like to see the table of new spawns, see the "newDigsiteSpawns.txt" the
 randomizer generates. Unlike FF1, we don't have map names associated to everything, so
 you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
 which area is which.
