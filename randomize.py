@@ -565,7 +565,7 @@ if (good == 1):
         f.write(r[0:12])
         for i in range(12, len(r), 12):
             f.write(r[i:(i + 2)])
-            pal = 6
+            pal = (((i // 12) - 1) % 0x1F) + 1
             while (pal == 6):
                 pal = random.randint(1, 0x1F)
             f.write(pal.to_bytes(2, "little"))
