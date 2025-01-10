@@ -563,11 +563,14 @@ if (good == 1):
         f.close()
         f = open("NDS_UNPACK/data/etc/bin/creature_palet_defs/0.bin", "ab")
         f.write(r[0:12])
+        pal = 0
         for i in range(12, len(r), 12):
             f.write(r[i:(i + 2)])
-            pal = (((i // 12) - 1) % 0x1F) + 1
-            while (pal == 6):
-                pal = random.randint(1, 0x1F)
+            pal = pal + 1
+            if (pal == 6):
+                pal = 7
+            elif (pal > 0x1F):
+                pal = 1
             f.write(pal.to_bytes(2, "little"))
             f.write(r[(i + 4):(i + 12)])
         f.close()
