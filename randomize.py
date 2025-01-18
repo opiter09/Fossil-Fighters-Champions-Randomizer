@@ -721,10 +721,10 @@ if (good == 1):
             f.write(r[(oldOffset + 0x4E):newOffset])
         f.close()
 
-        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-i", "0.bin", "-o",
-            "NDS_UNPACK/data/etc/creature_defs" ])
-        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-i", "0.bin", "-o",
-            "NDS_UNPACK/data/etc/creature_palet_defs" ])
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/etc/creature_defs" ])
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_palet_defs/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/etc/creature_palet_defs" ])
         
     if (res["anim"] == "Yes"):
         anims = list(range(1, 205))
@@ -748,8 +748,8 @@ if (good == 1):
             f.write(anims[oldAnim].to_bytes(2, "little"))
             f.write(r[(oldOffset + 0x44):newOffset])
         f.close()
-        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-i", "0.bin", "-o",
-            "NDS_UNPACK/data/etc/creature_defs" ])
+        subprocess.run([ "fftool.exe", "compress", "NDS_UNPACK/data/etc/bin/creature_defs/", "-c", "None", "-c", "None",
+            "-i", "0.bin", "-o", "NDS_UNPACK/data/etc/creature_defs" ])
 
     shutil.rmtree("NDS_UNPACK/data/battle_param/bin")
     shutil.rmtree("NDS_UNPACK/data/episode/bin")
