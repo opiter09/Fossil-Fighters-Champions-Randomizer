@@ -323,6 +323,10 @@ if (good == 1):
     # print(vivos[111])
     # print(vivos.index(111))
     
+    starters = oldStarters + [tricNum] + [vivos[pacroNum]]
+    if (res["dig"] == "No"):
+        starters[5] = pacroNum
+
     if ((res["start"] == "Yes") or (customR != "")):
         if (res["start"] == "Yes"):
             temp = list(range(1, 150))
@@ -330,12 +334,11 @@ if (good == 1):
                 if (n in temp):
                     temp.remove(n)
             starters = []
-            for i in range(6):
+            for i in range(5):
                 x = random.choice(temp)
                 starters.append(x)
                 temp.remove(x)
-        else:
-            starters = oldStarters + [tricNum] + [pacroNum]
+            starters.append(vivos[pacroNum])
         custom = list(customR.replace(" ", "").replace("\n", "").split(","))
         temp = []
         for c in custom:
@@ -353,14 +356,15 @@ if (good == 1):
             if ((vivoNames[starters[4]] + " " + k) in fossilNames):
                 temp = starters[4]
         starters[4] = temp
-        old = oldStarters + [tricNum] + [pacroNum]
+        old = oldStarters + [tricNum]
         if (res["dig"] == "No"): # the starters will still be random, but everything else isn't for the digsite stuff below
             vivos = [0] + list(range(1, 150))
-        for i in range(6):
+        for i in range(5):
             x = vivos.index(min(149, starters[i]))
             y = vivos[old[i]]
             vivos[x] = y
             vivos[old[i]] = min(149, starters[i])
+        starters[5] = vivos[pacroNum]
 
     moveLevels = []
     f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "rb")
