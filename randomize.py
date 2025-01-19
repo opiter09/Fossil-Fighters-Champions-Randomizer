@@ -587,7 +587,7 @@ if (good == 1):
         new = open("newStarters.txt", "wt")
         new.close()
         new = open("newStarters.txt", "at")
-        for i in range(6):
+        for i in range(4):
             new.write(oldNames[i] + " --> " + newNames[i] + "\n")
         new.close()
 
