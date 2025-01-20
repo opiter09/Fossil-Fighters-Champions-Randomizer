@@ -34,8 +34,14 @@ Features:
 - I have absolutely no idea how to deal with Treasure Lake's variable fossils, so they have
   been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
   starters are still available in Hot Spring Heights
-- Because of this text editing, this randomizer will only work on the English version of the
-  game, gomen'nasai
+- Because I don't speak Japanese, the text editing part is ignored when randomizing Japanese
+  ROMs. Therefore, in that case you will also have to consult the file "newStarters.txt". Also,
+  the names there are in English, gomen'nasai
+- As a further FFC-specific Japanese support problem, the anti-piracy fix I apply was made for
+  the American ROM. Therefore, there is a good chance that a randomized Japanese ROM will freeze
+  at the Rupert/Todd tutorial while playing on TwilightMenu++. If this comes up, you should be
+  able to transfer your save to your computer, play through the segment on MelonDS, and then
+  transfer the save back
 - Mono-Spawn Mode makes it so each map [2] only spawns one vivo (along with jewels, Silver
   Fossils, etc.). However, to ensure all of its fossils are available whoever replaces
   Tricera still spawns in Treasure Lake instead of the variable fossils

@@ -68,6 +68,9 @@ def digsiteOutput():
     text.close()
 
 def messageReplace(fileNum, oldList, newList):
+    if (japan == True):
+        return
+
     byteList = []
     subprocess.run([ "fftool.exe", "./NDS_UNPACK/data/msg/msg_" + fileNum ])
     f = open("./NDS_UNPACK/data/msg/bin/msg_" + fileNum + "/0.bin", "rb")
@@ -151,7 +154,15 @@ if (good == 1):
     if (os.path.exists("out.nds") == True):
         os.remove("out.nds")
     subprocess.run([ "dslazy.bat", "UNPACK", sys.argv[1] ])
-    
+
+    f = open(sys.argv[1], "rb")
+    r = f.read()
+    f.close()
+    if (r[0x0F] == 0x4A): # "J"
+        japan = True
+    else:
+        japan = False
+
     subprocess.run([ "xdelta3-3.0.11-x86_64.exe", "-d", "-f", "-s", "NDS_UNPACK/arm9.bin", "ffc_apFix.xdelta",
         "NDS_UNPACK/arm9x.bin" ])
     if (os.path.exists("NDS_UNPACK/arm9x.bin") == True):
