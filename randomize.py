@@ -348,7 +348,10 @@ if (good == 1):
         vivos[shift[i]] = x
     # print(vivos[111])
     # print(vivos.index(111))
-    
+
+    if (res["dig"] == "No"): # the starters will still be random, but everything else isn't for the digsite stuff below
+        vivos = [0] + list(range(1, 150))
+        
     starters = oldStarters + [tricNum] + [vivos[pacroNum]]
     if (res["dig"] == "No"):
         starters[5] = pacroNum
@@ -383,8 +386,6 @@ if (good == 1):
                 temp = starters[4]
         starters[4] = temp
         old = oldStarters + [tricNum]
-        if (res["dig"] == "No"): # the starters will still be random, but everything else isn't for the digsite stuff below
-            vivos = [0] + list(range(1, 150))
         for i in range(5):
             x = vivos.index(min(149, starters[i]))
             y = vivos[old[i]]
