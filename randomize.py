@@ -19,7 +19,7 @@ def digsiteOutput():
                 mapN = os.path.join(root, file).split("\\")[-2]
                 mapN = mapN.split("/")[-1] # it just works
                 f = open("ffc_kasekiNames.txt", "rt")
-                vivoNames = list(f.read().split("\n")).copy()
+                fossilNames = list(f.read().split("\n")).copy()
                 f.close()
                 realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
                 loc = point + 4
@@ -58,14 +58,28 @@ def digsiteOutput():
                                 rare = (["N/A", "Normal", "Rare"])[r[thisStart + 1]]
                             except:
                                 rare = "???"
-                            vivoNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
+                            fossilNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                             # chance = int.from_bytes(r[(val + point4 + 4):(val + point4 + 8)], "little")
-                            s = "\t\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + vivoNames[vivoNum]
+                            s = "\t\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + fossilNames[fossilNum]
                             s = s + " (" + dark + ", " + rare + ")" + "\n"
                             text.write(s)
                 if (check == 1):
                     text.write("\n")
     text.close()
+    if (japan == True):
+        vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n"))
+        vivoNamesJ = [("NONE").encode("UTF-8", errors = "ignore")] + list(open("ffc_vivoNames_j.txt", "rb").read().split((0x0A).to_bytes(1, "little")))
+        f = open("newDigsiteSpawns.txt", "rb")
+        r = f.read()
+        f.close()
+        for i in range(210):
+            for p in ["Head", "Body", "Arms", "Legs", "Single"]:
+                r = r.replace((" " + vivoNames[i] + " " + p).encode("UTF-8", errors = "ignore"),
+                    (0x20).to_bytes(1, "little") + vivoNamesJ[i] + (0x20).to_bytes(1, "little") + p.encode("UTF-8", errors = "ignore"))
+        f = open("newDigsiteSpawns.txt", "wb")
+        f.write(r)
+        f.close()
+        
 
 def messageReplace(fileNum, oldList, newList):
     if (japan == True):
@@ -177,6 +191,7 @@ if (good == 1):
     subprocess.run([ "fftool.exe", "NDS_UNPACK/data/map/m" ])
 
     vivoNames = ["NONE"] + list(open("ffc_vivoNames.txt", "rt").read().split("\n"))
+    vivoNamesJ = [("NONE").encode("UTF-8", errors = "ignore")] + list(open("ffc_vivoNames_j.txt", "rb").read().split((0x0A).to_bytes(1, "little")))
     vivoLongNames = ["NONE"] + list(open("ffc_vivoLongNames.txt", "rt").read().split("\n"))
     fossilNames = list(open("ffc_kasekiNames.txt", "rt").read().split("\n"))
 
@@ -597,14 +612,24 @@ if (good == 1):
         tricName = vivoLongNames[starters[4]]
         messageReplace("0022", ["a $c2Triceratops Dino Medal"], [articleList[4] + " $c2" + tricName + "\nDino Medal"])
         messageReplace("0022", [oldArticleList[4] + " $c2" + oldTricName + "\nDino Medal"], [articleList[4] + " $c2" + tricName + "\nDino Medal"])
-        oldNames = [vivoNames[x] for x in (oldStarters + [tricNum] + [pacroNum])]
-        newNames = [vivoNames[x] for x in starters]
-        new = open("newStarters.txt", "wt")
-        new.close()
-        new = open("newStarters.txt", "at")
-        for i in range(4):
-            new.write(oldNames[i] + " --> " + newNames[i] + "\n")
-        new.close()
+        if (japan == False):
+            oldNames = [vivoNames[x] for x in (oldStarters + [tricNum] + [pacroNum])]
+            newNames = [vivoNames[x] for x in starters]
+            new = open("newStarters.txt", "wt")
+            new.close()
+            new = open("newStarters.txt", "at")
+            for i in range(4):
+                new.write(oldNames[i] + " --> " + newNames[i] + "\n")
+            new.close()
+        else:
+            oldNames = [vivoNamesJ[x] for x in (oldStarters + [tricNum] + [pacroNum])]
+            newNames = [vivoNamesJ[x] for x in starters]
+            new = open("newStarters.txt", "wb")
+            new.close()
+            new = open("newStarters.txt", "ab")
+            for i in range(4):
+                new.write(oldNames[i] + (" --> ").encode("UTF-8", errors = "ignore") + newNames[i] + (0x0A).to_bytes(1, "little"))
+            new.close()
 
         for i in range(1, 5):
             f = open("NDS_UNPACK/data/battle_param/bin/battle_param_defs_" + str(i) + "/0.bin", "rb")

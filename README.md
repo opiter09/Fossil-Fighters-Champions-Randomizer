@@ -35,8 +35,8 @@ Features:
   been replaced with the fossils for whoever replaces Tricera. It's okay, though, the
   starters are still available in Hot Spring Heights
 - Because I don't speak Japanese, the text editing part is ignored when randomizing Japanese
-  ROMs. Therefore, in that case you will also have to consult the file "newStarters.txt". Also,
-  the names there are in English, gomen'nasai
+  ROMs. Therefore, in that case you will also have to consult the file "newStarters.txt". I was,
+  however, able to make the names in there be Japanese if your ROM is, so that's nice
 - As a further FFC-specific Japanese support problem, the anti-piracy fix I apply was made for
   the American ROM. Therefore, there is a good chance that a randomized Japanese ROM will freeze
   at the Rupert/Todd tutorial while playing on TwilightMenu++. If this comes up, you should be
