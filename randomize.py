@@ -59,9 +59,12 @@ def digsiteOutput():
                             except:
                                 rare = "???"
                             fossilNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
-                            # chance = int.from_bytes(r[(val + point4 + 4):(val + point4 + 8)], "little")
+                            chance = int.from_bytes(r[(thisStart + 4):(thisStart + 6)], "little")
+                            enemy = int.from_bytes(r[(thisStart + 6):(thisStart + 8)], "little")
                             s = "\t\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + fossilNames[fossilNum]
-                            s = s + " (" + dark + ", " + rare + ")" + "\n"
+                            s = s + " (" + dark + ", " + rare + ")"
+                            s = s + ": " + str(chance) + "%"
+                            s = s + " (Battle: " + str(enemy) + "%)" + "\n"
                             text.write(s)
                 if (check == 1):
                     text.write("\n")
