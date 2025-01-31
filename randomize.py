@@ -65,8 +65,6 @@ def digsiteOutput():
                                 chanceS = str(int(chanceFr))
                             elif (round(chanceFr, 2) == chanceFr):
                                 chanceS = str(round(chanceFr, 2))
-                            elif (int(round(chanceFr, 2)) == round(chanceFr, 2)):
-                                chanceS = "~" + str(int(round(chanceFr, 2)))
                             else:
                                 chanceS = "~" + str(round(chanceFr, 2))
                                 if (len(chanceS) == 4):
