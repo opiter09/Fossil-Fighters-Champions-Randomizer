@@ -50,20 +50,31 @@ def digsiteOutput():
                         startSpawns = val + point4 + point5 + 24 + (numWeird * 2)
                         for j in range(numSpawns):
                             thisStart = startSpawns + (j * 8)
-                            try:
-                                dark = (["N/A", "Normal", "Dark"])[r[thisStart]]
-                            except:
-                                dark = "???"
-                            try:
-                                rare = (["N/A", "Normal", "Rare"])[r[thisStart + 1]]
-                            except:
-                                rare = "???"
+                            totalChance = totalChance + int.from_bytes(r[(thisStart + 4):(thisStart + 6)], "little")
+                        for j in range(numSpawns):
+                            thisStart = startSpawns + (j * 8)
+                            dark = (["N/A", "Normal", "Dark"])[r[thisStart]]
+                            rare = (["N/A", "Normal", "Rare"])[r[thisStart + 1]]
                             fossilNum = int.from_bytes(r[(thisStart + 2):(thisStart + 4)], "little")
                             chance = int.from_bytes(r[(thisStart + 4):(thisStart + 6)], "little")
+                            if (totalChance > 0):
+                                chanceFr = (chance * 100) / totalChance
+                            else:
+                                chanceFr = 0
+                            if (int(chanceFr) == chanceFr):
+                                chanceS = str(int(chanceFr))
+                            elif (round(chanceFr, 2) == chanceFr):
+                                chanceS = str(round(chanceFr, 2))
+                            elif (int(round(chanceFr, 2)) == round(chanceFr, 2)):
+                                chanceS = "~" + str(int(round(chanceFr, 2)))
+                            else:
+                                chanceS = "~" + str(round(chanceFr, 2))
+                                if (len(chanceS) == 4):
+                                    chanceS = chanceS + "0"
                             enemy = int.from_bytes(r[(thisStart + 6):(thisStart + 8)], "little")
                             s = "\t\t\t" + "[0x" + hex(thisStart + 2).upper()[2:] + "] " + fossilNames[fossilNum]
                             s = s + " (" + dark + ", " + rare + ")"
-                            s = s + ": " + str(chance) + "%"
+                            s = s + ": " + chanceS + "%"
                             s = s + " (Battle: " + str(enemy) + "%)" + "\n"
                             text.write(s)
                 if (check == 1):
