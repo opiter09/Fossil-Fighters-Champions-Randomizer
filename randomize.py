@@ -48,6 +48,7 @@ def digsiteOutput():
                         numWeird = int.from_bytes(r[(val + point4 + point5 + 8):(val + point4 + point5 + 12)], "little")
                         numSpawns = int.from_bytes(r[(val + point4 + point5 + 16):(val + point4 + point5 + 20)], "little")
                         startSpawns = val + point4 + point5 + 24 + (numWeird * 2)
+                        totalChance = 0
                         for j in range(numSpawns):
                             thisStart = startSpawns + (j * 8)
                             totalChance = totalChance + int.from_bytes(r[(thisStart + 4):(thisStart + 6)], "little")
