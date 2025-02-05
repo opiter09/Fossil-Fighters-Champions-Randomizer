@@ -38,6 +38,9 @@ Features:
   Machai. All you need to do to change this is edit the text input, making sure to use the
   vivosaurs' line numbers in "ffc_vivoNames.txt"/"ffc_vivoNames_j.txt" [1], and separating
   each by a comma and any number of spaces. Also, all entries after the 25th will be ignored
+- Related to this, setting "PGV's in Teams" to "Yes" will allow the Post-Game Vivos to appear
+  in randomized enemy teams (if that feature is enabled). Otherwise, they will not show up
+  anywhere
 - The custom starters will use up to 5 values, for Aeros, Toba, Tsintao, Dimetro, and
   Tricera, in that order. These values can be from 1 to 210, except Tricera--the legendaries
   don't have fossils in FFC, so if you pick a number above 149 Tricera will turn into Dikelo
