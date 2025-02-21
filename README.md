@@ -75,10 +75,8 @@ Features:
   entirely untouched. Note that each vivosaur is randomized separately, not shuffled
   around as with the fossils
    
-Finally, if you would like to see the table of new spawns, see the "newDigsiteSpawns.txt" the
-randomizer generates. Unlike FF1, we don't have map names associated to everything, so
-you'll have to look at the shapes of the zone maps in "FFC-E-Maps-Color.zip" to figure out
-which area is which.
+Finally, if you would like to see the table of new spawns, see the file "newDigsiteSpawns.txt"
+that the randomizer generates.
 
 [1]: Because Champions, not every vivosaur's internal ID matches their Number shown in game.
 It is much simpler to use the former, so just deal with having to open a text file once in 

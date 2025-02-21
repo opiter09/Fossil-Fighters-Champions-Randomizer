@@ -1,0 +1,41 @@
+3000: Treasure Lake
+3001: Treasure Lake Pay-to-Dig
+3002: Treasure Lake DLC Area
+3003: Bonehead Hollow
+3100: Jungle Labyrinth Bottom
+3101: Jungle Labyrinth Left
+3102: Jungle Labyrinth Right
+3103: Jungle Labyrinth Top
+3104: Stone Pyramid Exterior
+3200: Petrified Woods
+3201: Petrified Woods Cavern
+3202: Petrified Woods Upper
+3400: Stone Pyramid Hallway
+3401: Stone Pyramid Chamber
+4000: Mt. Krakanak Entrance
+4001: Mt. Krakanak Mountainside
+4002: Mt. Krakanak Gondola
+4003: Mt. Krakanak Crater
+4100: Rainbow Canyon
+4101: Rainbow Canyon Gondola
+4102: Rainbow Canyon Bottom
+4103: BB Grotto
+4104: Red Canyon
+4105: Blue Canyon
+4106: Green Canyon
+4107: Yellow Canyon
+4108: White Canyon
+4300: Dusty Dunes
+4301: Dusty Dunes DLC Area
+5000: Hot Spring Heights
+5001: Hot Spring Heights Cavern
+5002: Hot Spring Heights Upper
+5003: Hot Spring
+5100: Icegrip Plateau
+5101: Icegrip Plateau Cavern
+6000: BB Brigade Base
+6100: Zongazonga's Castle
+6200: Bonehemoth Bottom
+6201: Bonehemoth Middle
+6202: Bonehemoth Mouth
+6400: Seabed Cavern
