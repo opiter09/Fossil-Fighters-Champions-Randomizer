@@ -64,7 +64,7 @@ Features:
   others won't. Also, to be clear, with this on you will not be able to get every vivosaur
 - The color randomization refers to the palette changes Super Fossils make. This does not
   change the VMM or lower-screen battle sprites, however, because that would be basically
-  impossible to automate lol
+  impossible to automate
 - Particle randomizing changes an unusual value in each vivosaur's data which controls
   their moves' particle effects, camera positions, and how many hits/damage values are
   shown. This will not effect the motions of the vivosaur itself, since that is

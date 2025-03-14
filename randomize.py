@@ -749,15 +749,25 @@ if (good == 1):
         f = open("NDS_UNPACK/data/etc/bin/creature_palet_defs/0.bin", "ab")
         f.write(r[0:12])
         pal = 0
+        normalPals = []
+        rgbPals = []
         for i in range(12, len(r), 12):
             f.write(r[i:(i + 2)])
-            pal = pal + 1
-            if (pal == 6):
-                pal = 7
-            elif (pal > 0x1F):
-                pal = 1
-            f.write(pal.to_bytes(2, "little"))
-            f.write(r[(i + 4):(i + 12)])
+            if (int.from_bytes(r[(i + 4):(i + 10)], "big") == 0x640064006400):
+                normalPals.append(int.from_bytes(r[i:(i + 2)], "little"))
+                pal = pal + 1
+                if (pal == 6):
+                    pal = 7
+                elif (pal > 0x1F):
+                    pal = 1
+                f.write(pal.to_bytes(2, "little"))
+                f.write(r[(i + 4):(i + 12)])
+            else:
+                rgbPals.append(int.from_bytes(r[i:(i + 2)], "little"))
+                f.write(r[(i + 2):(i + 4)])
+                for j in range(3):
+                    f.write(random.randint(0, 0x7F).to_bytes(2, "little"))
+                f.write(r[(i + 10):(i + 12)])
         f.close()
         
         f = open("NDS_UNPACK/data/etc/bin/creature_defs/0.bin", "rb")
@@ -775,7 +785,12 @@ if (good == 1):
                 newOffset = len(r)
             f.write(r[oldOffset:(oldOffset + 0x46)])
             for j in range(4):
-                v = random.randint(0, 0x276)
+                oldPal = int.from_bytes(r[(oldOffset + 0x46 + (j * 2)):(oldOffset + 0x46 + (j * 2) + 2)], "little")
+                if (oldPal in normalPals):
+                    v = random.choice(normalPals)
+                else:
+                    v = random.choice(rgbPals)
+                    # print(i)
                 f.write(v.to_bytes(2, "little"))
             f.write(r[(oldOffset + 0x4E):newOffset])
         f.close()
