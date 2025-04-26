@@ -15,6 +15,7 @@ def digsiteOutput():
                 f = open(os.path.join(root, file), "rb")
                 r = f.read()
                 f.close()
+                numTables = int.from_bytes(r[0x68:0x6C], "little")
                 point = int.from_bytes(r[0x6C:0x70], "little")
                 mapN = os.path.join(root, file).split("\\")[-2]
                 mapN = mapN.split("/")[-1] # it just works
@@ -26,12 +27,11 @@ def digsiteOutput():
                 for l in (f.read().split("\n")):
                     mapNames[l.split(": ")[0]] = l.split(": ")[1]
                 f.close()
-                realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
-                loc = point + 4
-                while (realP[-1] > 0):
+                realP = []
+                loc = point
+                for i in range(numTables):
                     realP.append(int.from_bytes(r[loc:(loc + 4)], "little"))
                     loc = loc + 4
-                realP = realP[0:-1]
                 check = 0
                 for val in realP:
                     index = int.from_bytes(r[(val + 2):(val + 4)], "little")
@@ -233,13 +233,13 @@ if (good == 1):
                 mapN = os.path.join(root, file).split("\\")[-2]
                 if (os.path.exists("NDS_UNPACK/data/map/e/" + mapN) == False):
                     continue
+                numTables = int.from_bytes(r[0x68:0x6C], "little")
                 point = int.from_bytes(r[0x6C:0x70], "little")
-                realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
-                loc = point + 4
-                while (realP[-1] > 0):
+                realP = []
+                loc = point
+                for i in range(numTables):
                     realP.append(int.from_bytes(r[loc:(loc + 4)], "little"))
                     loc = loc + 4
-                realP = realP[0:-1]
                 for val in realP:
                     index = int.from_bytes(r[(val + 2):(val + 4)], "little")
                     if (index == 0):
@@ -273,13 +273,13 @@ if (good == 1):
                 mapN = os.path.join(root, file).split("\\")[-2]
                 if (os.path.exists("NDS_UNPACK/data/map/e/" + mapN) == False):
                     continue
+                numTables = int.from_bytes(r[0x68:0x6C], "little")
                 point = int.from_bytes(r[0x6C:0x70], "little")
-                realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
-                loc = point + 4
-                while (realP[-1] > 0):
+                realP = []
+                loc = point
+                for i in range(numTables):
                     realP.append(int.from_bytes(r[loc:(loc + 4)], "little"))
                     loc = loc + 4
-                realP = realP[0:-1]
                 for val in realP:
                     index = int.from_bytes(r[(val + 2):(val + 4)], "little")
                     if (index == 0):
@@ -457,13 +457,13 @@ if (good == 1):
                     f = open(os.path.join(root, file), "wb")
                     f.close()
                     f = open(os.path.join(root, file), "ab")
+                    numTables = int.from_bytes(r[0x68:0x6C], "little")
                     point = int.from_bytes(r[0x6C:0x70], "little")
-                    realP = [ int.from_bytes(r[point:(point + 4)], "little") ]
-                    loc = point + 4
-                    while (realP[-1] > 0):
+                    realP = []
+                    loc = point
+                    for i in range(numTables):
                         realP.append(int.from_bytes(r[loc:(loc + 4)], "little"))
                         loc = loc + 4
-                    realP = realP[0:-1]
                     for val in realP:
                         index = int.from_bytes(r[(val + 2):(val + 4)], "little")
                         if (index == 0):
@@ -832,4 +832,4 @@ if (good == 1):
 
     subprocess.run([ "dslazy.bat", "PACK", "out.nds" ])
     subprocess.run([ "xdelta3-3.0.11-x86_64.exe", "-e", "-f", "-s", sys.argv[1], "out.nds", "out.xdelta" ])
-    psg.popup("You can now play out.nds!", font = "-size 12")
+    psg.popup("You can now play out.nds!", title = "", font = "-size 12")
